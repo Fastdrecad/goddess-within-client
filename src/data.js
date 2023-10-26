@@ -1,0 +1,193 @@
+export const sliderItems = [
+  {
+    id: 1,
+    img: "/src/assets/1.png",
+    title: "Winter Collection",
+    desc: "Don't compromise on style!  Up to -50% off on even more styles",
+    bg: "#fafafa",
+  },
+  {
+    id: 2,
+    img: "/src/assets/3.png",
+    title: "Loungewear Love",
+    desc: "Don't compromise on style!  Up to -50% off on even more styles",
+    bg: "#f1f1f1",
+  },
+  {
+    id: 3,
+    img: "/src/assets/2.png",
+    title: "Autumn Collection",
+    desc: `Don't compromise on style! Up to -50% off on even more styles`,
+    bg: "#fafafa",
+  },
+];
+
+export const categories = [
+  {
+    id: 1,
+    img: "/src/assets/categories/1.jpg",
+    title: "Shirt Style!",
+    category: "Dresses",
+  },
+  {
+    id: 2,
+    img: "/src/assets/categories/2.jpg",
+    title: "Chic Skirt!",
+    category: "Skirts",
+  },
+  {
+    id: 3,
+    img: "/src/assets/categories/3.jpg",
+    title: "Light Jackets",
+    category: "T-shirts",
+  },
+];
+
+export const data = [
+  {
+    id: 1,
+    img: "https://img01.ztat.net/article/spp-media-p1/0385022dc03c43a087a692f46560cc1c/c89f11d255894c1f9a6606478a6745d8.jpg?imwidth=1800",
+    img2: "https://img01.ztat.net/article/spp-media-p1/ec4b98737253407aaf518a3f2784e6f8/11b006185f9d4435bb80904e263ddfd2.jpg?imwidth=1800",
+    title: "Button-down Blouse",
+    isNew: true,
+    price: 150,
+    category: "Dresses",
+  },
+  {
+    id: 2,
+    img: "https://img01.ztat.net/article/spp-media-p1/a06b95a0a9b240e9a6d5540077be226d/17851541b28d484fbe2fa667cfa30daf.jpg?imwidth=400",
+    img2: "https://img01.ztat.net/article/spp-media-p1/2c74dd878bd747489fcf69e3315b85d9/6de05b4acc3d4d67a7b901fc38bfcb7e.jpg?imwidth=400",
+    title: "Smorzare Blouse",
+    discount: 50,
+    price: 210,
+    isDeal: true,
+    category: "Shirts & Blouses",
+  },
+  {
+    id: 3,
+    img: "https://img01.ztat.net/article/spp-media-p1/b733abf92b464c189abdc34dd01d67c7/3143f3b653ae41499d1d06f30afc4e54.jpg?imwidth=1800",
+    img2: "https://img01.ztat.net/article/spp-media-p1/fa40bf2e98634939ba6b07cfcf4b6e37/27a12a67fbc64c7b8f4bc3b283ab8a6f.jpg?imwidth=1800",
+    title: "Layla Blouse",
+    isNew: true,
+    price: 240,
+    category: "T-shirts",
+  },
+  {
+    id: 4,
+    img: "https://img01.ztat.net/article/spp-media-p1/9ccb709ad6a04949972a441d886f42e4/163aae0378524a359091610286412106.jpg?imwidth=762",
+    img2: "https://img01.ztat.net/article/spp-media-p1/dfd4bcd3c31647cca46efe01f2c8eb08/600cf2f71ca74621852229b511b39f49.jpg?imwidth=1800",
+    title: "Merne Long Sleeve",
+    category: "Dresses",
+    price: 80,
+  },
+  {
+    id: 5,
+    img: "https://img01.ztat.net/article/spp-media-p1/ba3747c408d94515959bfda5c13c9d6e/0c733b2066e743e09fcec5cabab03dd0.jpg?imwidth=762",
+    img2: "https://img01.ztat.net/article/spp-media-p1/2f9091593b1f4488bae45a986f8f25de/7a043387f52648bca84b92abc8cee74c.jpg?imwidth=1800",
+    title: "Classic Krall-button-down Blouse",
+    isNew: true,
+    price: 80,
+    category: "T-shirts",
+  },
+  {
+    id: 6,
+    img: "https://img01.ztat.net/article/spp-media-p1/b1067e7b1904431cbdf9066bd1f98564/dcd112c0688c4493985f1cf27b6381c0.jpg?imwidth=1800",
+    img2: "https://img01.ztat.net/article/spp-media-p1/173719f4c39e425fb7c0ee005c3cad64/73d6f6983106446ba9db57241fd4f7df.jpg?imwidth=1800",
+    title: "Ledkin",
+    isNew: true,
+    discount: 15,
+    price: 140,
+    isDeal: true,
+    category: "Skirts",
+  },
+  {
+    id: 7,
+    img: "https://img01.ztat.net/article/spp-media-p1/a624b1c92a9a4552b1baff4b78353324/b3c4d9f06d9c45229014e2f2982a6bff.jpg?imwidth=1800",
+    img2: "https://img01.ztat.net/article/spp-media-p1/ba2378a4c77f4f95854ddf72b6e867fe/71d98c90ffe9489183adfa767eafd64e.jpg?imwidth=1800",
+    title: "Nuvola",
+    discount: 20,
+    price: 139,
+    isDeal: true,
+    category: "Dresses",
+  },
+  {
+    id: 8,
+    img: "https://img01.ztat.net/article/spp-media-p1/f99cef15975148b5ac8d839422f1088c/2b80aa42ce2748a2be7c286143e7aec8.jpg?imwidth=1800",
+    img2: "https://img01.ztat.net/article/spp-media-p1/8780e8e00f50482d8018ee4f432a403a/cf17a201ca9448169820a94073e337c5.jpg?imwidth=1800",
+    title: "Shirt dress",
+    discount: 30,
+    price: 120,
+    category: "Dresses",
+  },
+  {
+    id: 9,
+    img: "https://img01.ztat.net/article/spp-media-p1/f99cef15975148b5ac8d839422f1088c/2b80aa42ce2748a2be7c286143e7aec8.jpg?imwidth=1800",
+    img2: "https://img01.ztat.net/article/spp-media-p1/8780e8e00f50482d8018ee4f432a403a/cf17a201ca9448169820a94073e337c5.jpg?imwidth=1800",
+    title: "Shirt dress",
+    discount: 30,
+    price: 120,
+    category: "Skirts",
+  },
+  {
+    id: 10,
+    img: "https://img01.ztat.net/article/spp-media-p1/f99cef15975148b5ac8d839422f1088c/2b80aa42ce2748a2be7c286143e7aec8.jpg?imwidth=1800",
+    img2: "https://img01.ztat.net/article/spp-media-p1/8780e8e00f50482d8018ee4f432a403a/cf17a201ca9448169820a94073e337c5.jpg?imwidth=1800",
+    title: "Shirt dress",
+    discount: 30,
+    price: 120,
+    category: "Dresses",
+  },
+  {
+    id: 11,
+    img: "https://img01.ztat.net/article/spp-media-p1/f99cef15975148b5ac8d839422f1088c/2b80aa42ce2748a2be7c286143e7aec8.jpg?imwidth=1800",
+    img2: "https://img01.ztat.net/article/spp-media-p1/8780e8e00f50482d8018ee4f432a403a/cf17a201ca9448169820a94073e337c5.jpg?imwidth=1800",
+    title: "Shirt dress",
+    discount: 30,
+    price: 120,
+    category: "Skirts",
+  },
+  {
+    id: 12,
+    img: "https://img01.ztat.net/article/spp-media-p1/f99cef15975148b5ac8d839422f1088c/2b80aa42ce2748a2be7c286143e7aec8.jpg?imwidth=1800",
+    img2: "https://img01.ztat.net/article/spp-media-p1/8780e8e00f50482d8018ee4f432a403a/cf17a201ca9448169820a94073e337c5.jpg?imwidth=1800",
+    title: "Shirt dress",
+    discount: 30,
+    price: 120,
+    category: "Dresses",
+  },
+];
+
+export const featuredProducts = [
+  {
+    id: 1,
+    img: "/src/assets/popular-products/1.png",
+  },
+  {
+    id: 2,
+    img: "/src/assets/popular-products/2.png",
+  },
+  {
+    id: 3,
+    img: "/src/assets/popular-products/1.png",
+  },
+  {
+    id: 4,
+    img: "/src/assets/popular-products/2.png",
+  },
+  {
+    id: 5,
+    img: "/src/assets/popular-products/3.png",
+  },
+  {
+    id: 6,
+    img: "/src/assets/popular-products/3.png",
+  },
+  {
+    id: 7,
+    img: "/src/assets/popular-products/2.png",
+  },
+  {
+    id: 8,
+    img: "/src/assets/popular-products/1.png",
+  },
+];
