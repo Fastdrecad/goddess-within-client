@@ -182,6 +182,13 @@ const CheckoutButton = styled.button`
 `;
 
 const CartSlide = ({ open, setOpen }) => {
+  const handleMouseLeave = () => {
+    setTimeout(() => {
+      setOpen(!open);
+    }, 500);
+    clearTimeout(handleMouseLeave);
+  };
+
   const products = useSelector((state) => state.cart.products);
 
   const totalPrice = () => {
@@ -206,7 +213,10 @@ const CartSlide = ({ open, setOpen }) => {
           setOpen(!open);
         }}
       />
-      <Container className={`${open ? "isOpen" : ""}`}>
+      <Container
+        className={`${open ? "isOpen" : ""}`}
+        onMouseLeave={handleMouseLeave}
+      >
         <Header>
           <Title>Your cart</Title>
           <Button onClick={() => setOpen(!open)}>

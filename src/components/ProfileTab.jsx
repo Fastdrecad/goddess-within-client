@@ -60,12 +60,19 @@ const Description = styled.span`
 `;
 
 const ProfileTab = ({ setIsHovering, isHovering }) => {
+  const handleMouseLeave = () => {
+    setTimeout(() => {
+      setIsHovering(!isHovering);
+    }, 100);
+    clearTimeout(handleMouseLeave);
+  };
+
   return (
-    <Container onMouseLeave={() => setIsHovering(!isHovering)}>
+    <Container onMouseLeave={handleMouseLeave}>
       <UnorderedList>
         <ListItem>
           <Account>
-            <NavLink>
+            <NavLink to="/register">
               <Item>Your account</Item>
             </NavLink>
           </Account>

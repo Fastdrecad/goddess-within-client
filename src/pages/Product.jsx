@@ -202,6 +202,10 @@ const ButtonHeart = styled.button`
     outline: 1px solid black;
     background-color: #e7e7e7;
   }
+
+  &.active {
+    background-color: red;
+  }
 `;
 
 const Product = () => {
@@ -210,7 +214,9 @@ const Product = () => {
   const [selectedImg, setSelectedImg] = useState("img");
   // console.log(selectedImg);
   const [isActive, setActive] = useState("img");
-  const [quantity, setQuantity] = useState(1);
+  let quantity = 1;
+  const [isLiked, setIsLiked] = useState(false);
+  console.log(isLiked);
 
   const dispatch = useDispatch();
 
@@ -342,6 +348,7 @@ const Product = () => {
                         price: data.attributes.price,
                         img: data.attributes.img.data.attributes.url,
                         quantity,
+                        isLiked,
                       })
                     )
                   }
@@ -349,7 +356,8 @@ const Product = () => {
                   add to bag
                 </Button>
                 <ButtonHeart
-                // onClick={handleClick}
+                // onClick={() => dispatch(like({ id: data.id }))}
+                // className={`${isLiked ? "active" : ""}`}
                 >
                   <BsHeart style={{ fontSize: "25px" }} />
                 </ButtonHeart>

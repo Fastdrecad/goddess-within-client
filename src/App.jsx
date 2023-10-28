@@ -18,6 +18,7 @@ import Home from "./pages/Home";
 import Product from "./pages/Product";
 import Products from "./pages/Products";
 import FeaturedProducts from "./components/FeaturedProducts";
+import Register from "./components/Register";
 
 const Layout = () => {
   return (
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: "/cart",
         element: <Cart />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
       },
     ],
   },

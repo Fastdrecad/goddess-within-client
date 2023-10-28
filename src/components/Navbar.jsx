@@ -118,8 +118,16 @@ const Navbar = () => {
   const [isHovering, setIsHovering] = useState(false);
 
   const products = useSelector((state) => state.cart.products);
-  console.log(products.length);
-  console.log();
+
+  const handleMouseOver = () => {
+    setOpen(!open);
+  };
+  const handleMouseLeave = () => {
+    setTimeout(() => {
+      setIsHovering(!isHovering);
+    }, 100);
+    clearTimeout(handleMouseLeave);
+  };
 
   return (
     <Container>
@@ -163,7 +171,11 @@ const Navbar = () => {
             </Badge>
           </MenuItemPerson>
           <MenuItem>
-            <Badge color="secondary" overlap="rectangular">
+            <Badge
+              color="secondary"
+              overlap="rectangular"
+              // badgeContent={products.length}
+            >
               <BsHeart style={{ fontSize: "25px" }} />
             </Badge>
           </MenuItem>
@@ -177,7 +189,7 @@ const Navbar = () => {
                 <HiOutlineShoppingBag
                   style={{ fontSize: "25px" }}
                   color="action"
-                  onClick={() => setOpen(!open)}
+                  onMouseOver={handleMouseOver}
                 />
               </Badge>
             </Link>

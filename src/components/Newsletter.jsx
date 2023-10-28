@@ -1,5 +1,5 @@
 import { Send } from "@material-ui/icons";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import emailjs from "@emailjs/browser";
 import { useNavigate } from "react-router-dom";
@@ -79,8 +79,21 @@ const SuccessCall = styled.p`
   font-weight: bold;
 `;
 
+const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+
 const Newsletter = () => {
   const [success, setSuccess] = useState(false);
+
+  const [email, setEmail] = useState("");
+  const [validEmail, setValidEmail] = useState(false);
+  const [emailFocus, setEmailFocus] = useState(false);
+
+  useEffect(() => {
+    const result = EMAIL_REGEX.test(email);
+    console.log(result);
+    console.log(email);
+    setValidEmail(result);
+  }, [email]);
 
   const form = useRef();
 
@@ -104,7 +117,8 @@ const Newsletter = () => {
           console.log(error.text);
         }
       );
-    e.target.reset();
+    setEmail("");
+    setSuccess(!success);
   };
 
   return (
@@ -132,8 +146,10 @@ const Newsletter = () => {
               name="email"
               placeholder="Enter your email address"
               required
+              autoComplete="off"
+              onChange={(e) => setEmail(e.target.value)}
             />
-            <Button type="submit" onClick={() => setSuccess(!success)}>
+            <Button type="submit">
               <Send />
             </Button>
           </FormContainer>
