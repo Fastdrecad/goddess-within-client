@@ -126,6 +126,7 @@ const CartItem = ({ id, title, desc, price, img, quantity }) => {
   const products = useSelector((state) => state.cart.products);
   console.log(products);
   console.log({ id });
+
   return (
     <CartItemContent>
       <ProductDetail>
@@ -154,7 +155,7 @@ const CartItem = ({ id, title, desc, price, img, quantity }) => {
           <Bin>
             <Trash
               style={{ cursor: "pointer" }}
-              onClick={() => dispatch(removeItem(id))}
+              onClick={() => dispatch(removeItem({ id }))}
             >
               <BsTrash style={{ marginRight: "5px" }} />
               Remove

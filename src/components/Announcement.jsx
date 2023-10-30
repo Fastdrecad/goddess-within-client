@@ -9,6 +9,9 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 `;
 
 const Title = styled.p`

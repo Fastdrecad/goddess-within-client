@@ -3,6 +3,7 @@ import List from "../components/List";
 import { useState } from "react";
 import useFetch from "../hooks/useFetch";
 import { useParams } from "react-router-dom";
+import FeaturedProducts from "../components/FeaturedProducts";
 
 const Container = styled.div`
   padding: 30px 50px;
@@ -61,12 +62,12 @@ const Products = () => {
   const catId = parseInt(useParams().id);
   const [maxPrice, setMaxPrice] = useState(1000);
   const [sort, setSort] = useState("asc");
+
   const [selectedSubCats, setSelectedSubCats] = useState([]);
 
   const { data, loading, error } = useFetch(
     `/sub-categories?[filters][categories][id][$eq]=${catId}`
   );
-  console.log(data);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -102,16 +103,9 @@ const Products = () => {
               <FilterText>Filter Products:</FilterText>
               <Select name="color" defaultValue="placeholder">
                 <Option value="placeholder" disabled>
-                  color
+                  price
                 </Option>
-                <Option>beige</Option>
-                <Option>black</Option>
-                <Option>brown</Option>
-                <Option>red</Option>
-                <Option>rose</Option>
-                <Option>bordeaux</Option>
-                <Option>charcoal</Option>
-                <Option>green</Option>
+                <Option>range</Option>
               </Select>
               <Select name="size">
                 <Option disabled>Size</Option>
@@ -154,6 +148,7 @@ const Products = () => {
           />
         </ContainerRight>
       </Container>
+      <FeaturedProducts type="featured" />
     </>
   );
 };

@@ -1,7 +1,17 @@
+import { Badge } from "@material-ui/core";
+import { BsHeart, BsHeartFill } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { like } from "../redux/wishReducer";
 
 const Container = styled.div`
+  display: flex;
+  position: relative;
+  align-self: flex-start;
+`;
+
+const Wrapper = styled.div`
   width: 280px;
   display: flex;
   flex-direction: column;
@@ -63,10 +73,12 @@ const Season = styled.span`
 const Title = styled.h2`
   font-size: 16px;
   font-weight: 400;
-  color: #000000;
+  color: ${(props) => props.$clr};
 `;
 
 const Originally = styled.h3`
+  color: ${(props) => props.$clr};
+  /* font-weight: 400; */
   display: flex;
   gap: 20px;
 `;
@@ -87,57 +99,100 @@ const Price = styled.h3`
   gap: 20px;
 `;
 
-const Card = ({ item }) => {
+const Like = styled.span`
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  background-color: white;
+  padding: 12px 8px;
+  cursor: pointer;
+  z-index: 30;
+  transition: all 0.2s linear;
+
+  &:hover {
+    background-color: #c0c0c0;
+    color: white;
+    fill: black;
+  }
+`;
+
+const Card = ({ item, type }) => {
+  const isLiked = false; // temporarily
   // console.log(item);
   return (
-    <Link
-      to={`/product/${item.id}`}
-      style={{
-        color: "black",
-        textDecoration: "none",
-        alignSelf: "flex-start",
-      }}
-    >
-      <Container>
-        <ImageContainer>
-          {item?.attributes.isDeal && <Deal>Deal</Deal>}
-          {item?.attributes.isNew && <Season>New</Season>}
+    <Container>
+      <Like
+        onClick={() =>
+          dispatch(
+            like({
+              id: item.id,
+              title: item.attributes.title,
+              desc: item.attributes.desc,
+              price: item.attributes.price,
+              img: item.attributes.img.data.attributes.url,
+            })
+          )
+        }
+      >
+        <Badge color="secondary" overlap="rectangular">
+          {!isLiked ? (
+            <BsHeart style={{ fontSize: "25px" }} />
+          ) : (
+            <BsHeartFill style={{ fontSize: "25px", fill: "red" }} />
+          )}
+        </Badge>
+      </Like>
+      <Link
+        to={`/product/${item.id}`}
+        style={{
+          color: "black",
+          textDecoration: "none",
+          zIndex: "10",
+        }}
+      >
+        <Wrapper>
+          <ImageContainer>
+            {item?.attributes.isDeal && <Deal>Deal</Deal>}
+            {item?.attributes.isNew && <Season>New</Season>}
 
-          <MainImage
-            src={
-              import.meta.env.VITE_REACT_APP_UPLOAD_URL +
-              item.attributes?.img?.data?.attributes?.url
-            }
-          />
-          <SecondImage
-            src={
-              import.meta.env.VITE_REACT_APP_UPLOAD_URL +
-              item.attributes?.img2.data?.attributes?.url
-            }
-          />
-        </ImageContainer>
-        <Title>{item?.attributes.title}</Title>
-        {item?.attributes.discount ? (
-          <Price style={{ color: "red" }}>{item?.attributes.price} €</Price>
-        ) : (
-          <Price>{item?.attributes.price} €</Price>
-        )}
-        {item?.attributes.discount && (
-          <Originally>
-            <OriginalPrice>
-              Originally:{" "}
-              {Math.floor(
-                (item?.attributes.price /
-                  (1 - item?.attributes.discount / 100)) *
-                  100
-              ) / 100}
-              €
-            </OriginalPrice>
-            <Discount>-{item?.attributes.discount}%</Discount>
-          </Originally>
-        )}
-      </Container>
-    </Link>
+            <MainImage
+              src={
+                import.meta.env.VITE_REACT_APP_UPLOAD_URL +
+                item.attributes?.img?.data?.attributes?.url
+              }
+            />
+            <SecondImage
+              src={
+                import.meta.env.VITE_REACT_APP_UPLOAD_URL +
+                item.attributes?.img2.data?.attributes?.url
+              }
+            />
+          </ImageContainer>
+          <Title $clr={`${type === "featured" ? "#ffffff" : "#000000"}`}>
+            {item?.attributes.title}
+          </Title>
+          {item?.attributes.discount ? (
+            <Price style={{ color: "red" }}>{item?.attributes.price} €</Price>
+          ) : (
+            <Price>{item?.attributes.price} €</Price>
+          )}
+          {item?.attributes.discount && (
+            <Originally $clr={`${type === "featured" ? "#ffffff" : "#000000"}`}>
+              <OriginalPrice>
+                Originally:{"  "}
+                {Math.floor(
+                  (item?.attributes.price /
+                    (1 - item?.attributes.discount / 100)) *
+                    100
+                ) / 100}
+                €
+              </OriginalPrice>
+              <Discount>-{item?.attributes.discount}%</Discount>
+            </Originally>
+          )}
+        </Wrapper>
+      </Link>
+    </Container>
   );
 };
 

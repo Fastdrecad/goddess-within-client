@@ -17,14 +17,15 @@ import Cart from "./pages/Cart";
 import Home from "./pages/Home";
 import Product from "./pages/Product";
 import Products from "./pages/Products";
-import FeaturedProducts from "./components/FeaturedProducts";
 import Register from "./components/Register";
+import CartSlide from "./components/CartSlide";
 
 const Layout = () => {
   return (
     <div className="app">
       <Announcement />
       <Navbar />
+      <CartSlide />
       <NavigateToTop />
       <Outlet />
       <Newsletter />

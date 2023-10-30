@@ -6,8 +6,9 @@ import { useParams } from "react-router-dom";
 import { BsHeart } from "react-icons/bs";
 import { HiScale } from "react-icons/hi2";
 import useFetch from "../hooks/useFetch";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux/cartReducer";
+import { like } from "../redux/wishReducer";
 
 const Container = styled.div`
   font-family: "HelveticaNowText-Regular";
@@ -215,13 +216,14 @@ const Product = () => {
   // console.log(selectedImg);
   const [isActive, setActive] = useState("img");
   let quantity = 1;
-  const [isLiked, setIsLiked] = useState(false);
-  console.log(isLiked);
-
+  let isLiked = false;
   const dispatch = useDispatch();
-
+  const products = useSelector((state) => state.cart.products);
+  const product = useSelector((state) => state.wish.product);
+  console.log(product);
   const { data, loading, error } = useFetch(`/products/${id}?populate=*`);
-  // console.log(data);
+
+  console.log(isLiked);
 
   return (
     <Container>
@@ -348,7 +350,6 @@ const Product = () => {
                         price: data.attributes.price,
                         img: data.attributes.img.data.attributes.url,
                         quantity,
-                        isLiked,
                       })
                     )
                   }
@@ -356,8 +357,19 @@ const Product = () => {
                   add to bag
                 </Button>
                 <ButtonHeart
-                // onClick={() => dispatch(like({ id: data.id }))}
-                // className={`${isLiked ? "active" : ""}`}
+                  onClick={() =>
+                    dispatch(
+                      like({
+                        id: data.id,
+                        title: data.attributes.title,
+                        desc: data.attributes.desc,
+                        price: data.attributes.price,
+                        img: data.attributes.img.data.attributes.url,
+                        isLiked,
+                      })
+                    )
+                  }
+                  className={`${isLiked ? "active" : ""}`}
                 >
                   <BsHeart style={{ fontSize: "25px" }} />
                 </ButtonHeart>

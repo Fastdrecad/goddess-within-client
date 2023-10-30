@@ -27,19 +27,19 @@ export const categories = [
     id: 1,
     img: "/src/assets/categories/1.jpg",
     title: "Shirt Style!",
-    category: "Dresses",
+    category: "New Arrivals",
   },
   {
     id: 2,
     img: "/src/assets/categories/2.jpg",
     title: "Chic Skirt!",
-    category: "Skirts",
+    category: "Ready to wear",
   },
   {
     id: 3,
     img: "/src/assets/categories/3.jpg",
     title: "Light Jackets",
-    category: "T-shirts",
+    category: "Beauty",
   },
 ];
 

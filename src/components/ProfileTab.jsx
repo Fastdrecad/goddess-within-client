@@ -5,12 +5,12 @@ const Container = styled.div`
   width: 335px;
   inset: -2px 0px auto auto;
   position: absolute;
-  transform: translate(-160px, 99px);
+  transform: translate(-160px, 67px);
   transition: all 2s ease;
   border: 2px solid black;
   box-sizing: border-box;
   background-color: white;
-  z-index: 2;
+  z-index: 4;
 `;
 
 const UnorderedList = styled.ul`

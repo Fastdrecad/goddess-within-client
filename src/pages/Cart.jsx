@@ -209,6 +209,10 @@ const Button = styled.button`
   color: white;
   font-size: 14px;
 
+  &:hover {
+    opacity: 0.5;
+  }
+
   &:active {
     background-color: green;
   }
@@ -297,6 +301,7 @@ const Cart = () => {
           </Summary>
         </Right>
       </Wrapper>
+      <FeaturedProducts type="recommended" />
     </Container>
   );
 };

@@ -64,7 +64,7 @@ const Carousel = () => {
             <InfoContainer>
               <Title>{item.title}</Title>
               <Desc>{item.desc}</Desc>
-              <NavLink to="/products/1">
+              <NavLink to="/products/5">
                 <Button>SAVE NOW</Button>
               </NavLink>
             </InfoContainer>

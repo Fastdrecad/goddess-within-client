@@ -4,6 +4,7 @@ import { Add, Remove } from "@material-ui/icons";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { increment, decrement, removeItem } from "../redux/cartReducer.js";
+import { BsTrash } from "react-icons/bs";
 
 const CartSlideItemContent = styled.div`
   display: flex;
@@ -33,6 +34,17 @@ const CounterLeft = styled.div`
   width: 30%;
   margin: 20px 0;
 `;
+
+const Trash = styled.span`
+  display: flex;
+  font-size: 14px;
+  align-items: center;
+  justify-content: center;
+  font-family: "HelveticaNowText-Light";
+  font-weight: 200;
+  color: #a6a6a6;
+`;
+
 const Description = styled.p``;
 
 const Price = styled.span`
@@ -91,6 +103,12 @@ const CartSlideItem = ({ id, title, desc, price, img, quantity }) => {
               onClick={() => dispatch(increment({ id }))}
             />
           </CounterLeft>
+          <Trash
+            style={{ cursor: "pointer" }}
+            onClick={() => dispatch(removeItem({ id }))}
+          >
+            <BsTrash />
+          </Trash>
           <Price>
             {quantity} x {price} €
           </Price>

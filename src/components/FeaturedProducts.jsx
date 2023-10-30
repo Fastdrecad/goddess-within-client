@@ -20,15 +20,14 @@ const Top = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 50px;
+  color: ${(props) => props.$clr};
 `;
 const Title = styled.h1`
   flex: 2;
   text-transform: capitalize;
   font-size: 22px;
-  color: #ffffff;
 `;
 const Desc = styled.p`
-  color: #ffffff;
   flex: 3;
 `;
 const BottomContainer = styled.div`
@@ -100,9 +99,9 @@ const FeaturedProducts = ({ type }) => {
   // console.log(data);
 
   return (
-    <Container $bgr={`${type === "featured" ? "#6547b2" : "gray"}`}>
+    <Container $bgr={`${type === "featured" ? "#084D5E" : "#e5b9c7"}`}>
       <Wrapper>
-        <Top>
+        <Top $clr={`${type === "featured" ? "#ffffff" : "#000000"}`}>
           <Title>{type} products</Title>
           <Desc>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio
@@ -122,7 +121,7 @@ const FeaturedProducts = ({ type }) => {
               ? "loading"
               : data?.map((item, i) => (
                   <CardList key={item.id}>
-                    <Card item={item} />
+                    <Card item={item} type={type} />
                   </CardList>
                 ))}
           </ContainerList>

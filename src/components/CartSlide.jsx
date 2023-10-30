@@ -4,6 +4,10 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import CartSlideItem from "./CartSlideItem";
+import { loadStripe } from "@stripe/stripe-js";
+import { makeRequest } from "../requestMethods";
+import { useContext } from "react";
+import { MenuContext } from "../context/navContext";
 
 const ContainerBackground = styled.div`
   position: absolute;
@@ -32,7 +36,7 @@ const Container = styled.div`
   color: black;
   background-color: white;
   transition: all 800ms ease;
-  opacity: 0;
+  opacity: 1;
   z-index: 9999;
 
   &.isOpen {
@@ -70,38 +74,37 @@ const DrawerBody = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-
   padding: 20px 20px 0;
 `;
 const CartContainer = styled.div`
   width: 100%;
   height: 100%;
+`;
+
+const DrawerInner = styled.div`
+  /* display: flex; */
+  justify-content: flex-start;
+  flex-direction: column;
+  position: relative;
+`;
+
+const ContainerItem = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-height: 60vh;
+  flex-wrap: nowrap;
   scroll-behavior: smooth;
   overflow-y: scroll;
+  list-style: none;
 
   &::-webkit-scrollbar {
     display: none;
     position: relative;
   }
 `;
-const Form = styled.form``;
 
-const DrawerInner = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: column;
-  gap: 20px;
-  margin-bottom: 249px;
-`;
-
-const ContainerItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  width: 100%;
-
-  max-height: 500px;
-`;
+const CartSlideList = styled.li``;
 
 const Image = styled.img`
   flex: 1;
@@ -140,7 +143,6 @@ const Amount = styled.h1``;
 
 const Total = styled.div`
   box-sizing: border-box;
-  /* background-color: yellow; */
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -155,6 +157,7 @@ const Total = styled.div`
   z-index: 3;
   background-color: white;
 `;
+
 const TotalCost = styled.div`
   display: flex;
   justify-content: space-between;
@@ -164,7 +167,7 @@ const TotalCost = styled.div`
 const Subtotal = styled.span`
   font-weight: bold;
   text-transform: uppercase;
-  padding: 20px 0;
+  /* padding: 20px 0; */
 `;
 const Cost = styled.span`
   font-weight: bold;
@@ -172,19 +175,25 @@ const Cost = styled.span`
 const CheckoutButton = styled.button`
   width: 100%;
   border: none;
-  font-size: 16px;
+  font-size: 14px;
   padding: 14px 0;
   color: white;
   background-color: black;
-
   text-transform: uppercase;
   cursor: pointer;
+
+  &:hover {
+    opacity: 0.5;
+  }
 `;
 
-const CartSlide = ({ open, setOpen }) => {
+const CartSlide = () => {
+  const { toggle, menuOpen } = useContext(MenuContext);
+  const [close, setClose] = useState(false);
+
   const handleMouseLeave = () => {
     setTimeout(() => {
-      setOpen(!open);
+      toggle();
     }, 500);
     clearTimeout(handleMouseLeave);
   };
@@ -196,66 +205,78 @@ const CartSlide = ({ open, setOpen }) => {
     products.forEach((item) => (total += item.quantity * item.price));
     return total.toFixed(2);
   };
-  console.log(products);
 
-  useEffect(() => {
-    document.body.classList.add("overflowHidden");
+  // useEffect(() => {
+  //   document.body.classList.add("overflowHidden");
 
-    return () => {
-      document.body.classList.remove("overflowHidden");
+  //   return () => {
+  //     document.body.classList.remove("overflowHidden");
+  //   };
+  // }, []);
+
+  const stripePromise = loadStripe(
+    "pk_test_51O2q5XFCjM1k0EDke6T3tMGgH1PtZ18VretDYLncIwwkCBBO3k5apeH8ojAT7wi2KburwOaozi8VEAhMyXvrimoO00QysDU0Aw"
+  );
+
+  // todo Empty the BAG after checkout
+  const handleClick = () => {
+    const handlePayment = async () => {
+      try {
+        const stripe = await stripePromise;
+        const res = await makeRequest.post("/orders", {
+          products,
+        });
+
+        await stripe.redirectToCheckout({
+          sessionId: res.data.stripeSession.id,
+        });
+      } catch (err) {
+        console.log(err);
+      }
     };
-  }, []);
+    handlePayment();
+  };
 
   return (
-    <>
-      <ContainerBackground
-        onClick={() => {
-          setOpen(!open);
-        }}
-      />
-      <Container
-        className={`${open ? "isOpen" : ""}`}
-        onMouseLeave={handleMouseLeave}
-      >
-        <Header>
-          <Title>Your cart</Title>
-          <Button onClick={() => setOpen(!open)}>
-            <Close style={{ fontSize: "30px" }} />
-          </Button>
-        </Header>
-        <DrawerBody>
-          <CartContainer>
-            <Form action="/cart" method="post">
-              <DrawerInner>
-                <ContainerItem>
-                  {products?.map((item) => (
-                    <CartSlideItem
-                      key={new Date().getTime + Math.random()}
-                      id={item.id}
-                      title={item.title}
-                      desc={item.desc}
-                      price={item.price}
-                      img={item.img}
-                      quantity={item.quantity}
-                    />
-                  ))}
-                </ContainerItem>
-              </DrawerInner>
+    <Container
+      className={`${menuOpen ? "isOpen" : ""}`}
+      onMouseLeave={handleMouseLeave}
+    >
+      <Header>
+        <Title>Your cart</Title>
+      </Header>
+      <DrawerBody>
+        <CartContainer>
+          <DrawerInner>
+            <ContainerItem>
+              {products?.map((item) => (
+                <CartSlideList>
+                  <CartSlideItem
+                    key={new Date().getTime + Math.random()}
+                    id={item.id}
+                    title={item.title}
+                    desc={item.desc}
+                    price={item.price}
+                    img={item.img}
+                    quantity={item.quantity}
+                  />
+                </CartSlideList>
+              ))}
+            </ContainerItem>
+          </DrawerInner>
 
-              <Total>
-                <TotalCost>
-                  <Subtotal>subtotal</Subtotal>
-                  <Cost> {totalPrice()} €</Cost>
-                </TotalCost>
-                <NavLink to="/cart" onClick={() => setOpen(!open)}>
-                  <CheckoutButton>go to cart</CheckoutButton>
-                </NavLink>
-              </Total>
-            </Form>
-          </CartContainer>
-        </DrawerBody>
-      </Container>
-    </>
+          <Total>
+            <TotalCost>
+              <Subtotal>subtotal</Subtotal>
+              <Cost> {totalPrice()} €</Cost>
+            </TotalCost>
+            <NavLink to="/cart">
+              <CheckoutButton>go to checkout</CheckoutButton>
+            </NavLink>
+          </Total>
+        </CartContainer>
+      </DrawerBody>
+    </Container>
   );
 };
 

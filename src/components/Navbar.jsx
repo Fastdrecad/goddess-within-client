@@ -10,10 +10,16 @@ import { useState } from "react";
 import CartSlide from "./CartSlide";
 import ProfileTab from "./ProfileTab";
 import { useSelector } from "react-redux";
+import { MenuContext } from "../context/navContext";
+import { useContext } from "react";
 
 const Container = styled.div`
   height: 90px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  position: sticky;
+  top: 32px;
+  z-index: 100;
+  background-color: white;
 `;
 
 const Wrapper = styled.div`
@@ -25,18 +31,13 @@ const Wrapper = styled.div`
 
 const NavbarLink = styled(NavLink)`
   color: black;
-  text-decoration: none;
   position: relative;
+  border: none;
+  text-decoration: none;
 
-  &:hover::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 0;
-    left: 0;
-    bottom: -2px;
-    text-decoration: underline;
-    border-bottom: 2px solid black;
+  &.active {
+    padding-bottom: 4px;
+    border-bottom: 3px solid black;
   }
 `;
 
@@ -63,7 +64,7 @@ const MenuItemPerson = styled.span`
   margin-inline: 18px;
   cursor: pointer;
   padding: 5px;
-  z-index: 3;
+  z-index: 5;
   background-color: white;
   border: 2px solid transparent;
   border-bottom: none;
@@ -114,14 +115,13 @@ const Input = styled.input`
 `;
 
 const Navbar = () => {
-  const [open, setOpen] = useState(false);
+  const { toggle, menuOpen } = useContext(MenuContext);
+  const [active, setActive] = useState(false);
+
   const [isHovering, setIsHovering] = useState(false);
 
   const products = useSelector((state) => state.cart.products);
 
-  const handleMouseOver = () => {
-    setOpen(!open);
-  };
   const handleMouseLeave = () => {
     setTimeout(() => {
       setIsHovering(!isHovering);
@@ -134,7 +134,13 @@ const Navbar = () => {
       <Wrapper>
         <Left>
           <MenuItem>
-            <NavbarLink to="/products/1">New Arrivals</NavbarLink>
+            <NavbarLink
+              to="/products/1"
+              onClick={() => setActive(!active)}
+              className={`${active} ? "active" : "`}
+            >
+              New Arrivals
+            </NavbarLink>
           </MenuItem>
           <MenuItem>
             <NavbarLink to="/products/2">Ready to wear</NavbarLink>
@@ -143,7 +149,7 @@ const Navbar = () => {
             <NavbarLink to="/products/3">Beauty</NavbarLink>
           </MenuItem>
           <MenuItem>
-            <NavbarLink to="/products/4">Sale %</NavbarLink>
+            <NavbarLink to="/products/5">Sale %</NavbarLink>
           </MenuItem>
         </Left>
         <Center>
@@ -189,7 +195,9 @@ const Navbar = () => {
                 <HiOutlineShoppingBag
                   style={{ fontSize: "25px" }}
                   color="action"
-                  onMouseOver={handleMouseOver}
+                  onMouseEnter={() => {
+                    toggle();
+                  }}
                 />
               </Badge>
             </Link>
@@ -199,7 +207,6 @@ const Navbar = () => {
       {isHovering && (
         <ProfileTab setIsHovering={setIsHovering} isHovering={isHovering} />
       )}
-      {open && <CartSlide open={open} setOpen={setOpen} />}
     </Container>
   );
 };
