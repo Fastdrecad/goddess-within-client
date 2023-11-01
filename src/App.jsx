@@ -19,6 +19,9 @@ import Product from "./pages/Product";
 import Products from "./pages/Products";
 import Register from "./components/Register";
 import CartSlide from "./components/CartSlide";
+import Login from "./components/Login";
+// import { Protector } from "./helpers";
+import Logout from "./components/Logout";
 
 const Layout = () => {
   return (
@@ -43,6 +46,8 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+        // In case you need to protect the HOME PAGE
+        // element: <Protector Component={Home} />,
       },
       {
         path: "/products/:id",
@@ -59,6 +64,14 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/logout",
+        element: <Logout />,
       },
     ],
   },

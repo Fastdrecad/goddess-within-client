@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import { userData } from "../helpers";
 
 const Container = styled.div`
   width: 335px;
@@ -22,6 +23,23 @@ const UnorderedList = styled.ul`
   height: 100%;
 `;
 
+const Button = styled.button`
+  border: none;
+  padding: 15px 20px;
+  background-color: #000000;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+  font-weight: 800;
+  margin: 10px 0;
+
+  &:disabled {
+    color: red;
+    cursor: not-allowed;
+  }
+`;
+
 const ListItem = styled.li`
   list-style: none;
   border-bottom: 1px solid lightgray;
@@ -31,8 +49,10 @@ const ListItem = styled.li`
   display: flex;
   align-items: center;
   justify-content: center;
+  display: block;
+  display: flex;
 
-  &:hover {
+  &:hover:not(:first-child) {
     background-color: #eaeaea;
     width: 100%;
   }
@@ -59,7 +79,13 @@ const Description = styled.span`
   }
 `;
 
+const linkStyle = {
+  width: "100%",
+};
+
 const ProfileTab = ({ setIsHovering, isHovering }) => {
+  const { username } = userData();
+
   const handleMouseLeave = () => {
     setTimeout(() => {
       setIsHovering(!isHovering);
@@ -70,10 +96,20 @@ const ProfileTab = ({ setIsHovering, isHovering }) => {
   return (
     <Container onMouseLeave={handleMouseLeave}>
       <UnorderedList>
+        {!username && (
+          <ListItem>
+            <NavLink to="/login" style={linkStyle}>
+              <Button>Login</Button>
+            </NavLink>
+          </ListItem>
+        )}
         <ListItem>
           <Account>
             <NavLink to="/register">
-              <Item>Your account</Item>
+              <Item>
+                Your account{" "}
+                {`${!username ? username : username.split(" ")[0]}`}
+              </Item>
             </NavLink>
           </Account>
         </ListItem>
@@ -100,7 +136,7 @@ const ProfileTab = ({ setIsHovering, isHovering }) => {
         </ListItem>
       </UnorderedList>
       <Logout>
-        <NavLink>
+        <NavLink to="/logout">
           <Description>Not you? Log out</Description>
         </NavLink>
       </Logout>

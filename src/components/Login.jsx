@@ -1,5 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
+import axios from "axios";
+import { NavLink, useNavigate } from "react-router-dom";
+import { storeUser } from "../helpers";
 
 const Container = styled.div`
   display: flex;
@@ -57,39 +60,65 @@ const Button = styled.button`
   width: 40%;
   border: none;
   padding: 15px 20px;
-  background-color: lightgray;
+  background-color: #000000;
   color: white;
   cursor: pointer;
   width: 100%;
   font-size: 18px;
   font-weight: 800;
   margin: 10px 0;
+
   &:disabled {
     color: red;
     cursor: not-allowed;
   }
 `;
 
-const Link = styled.a`
-  margin: 5px 0;
-  text-decoration: underline;
-  cursor: pointer;
-  color: #6328e0;
-  font-weight: 800;
+const linkStyle = {
+  margin: "5px 0",
+  textDecoration: "underline",
+  cursor: "pointer",
+  color: "#6328e0",
+  fontWeight: 800,
+};
+
+const Error = styled.span`
+  color: red;
 `;
 
+const initialUser = { password: "", identifier: "" };
+
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [user, setUser] = useState(initialUser);
 
-  // const handleClick = (e) => {
-  //   e.preventDefault();
-  //   login(dispatch, { username, password });
-  // };
+  const navigate = useNavigate();
 
-  const Error = styled.span`
-    color: red;
-  `;
+  const handleChange = ({ target }) => {
+    const { name, value } = target;
+    setUser((currentUser) => ({
+      ...currentUser,
+      [name]: value,
+    }));
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    const url = `http://localhost:1337/api/auth/local`;
+    try {
+      if (user.identifier && user.password) {
+        const { data } = await axios.post(url, user);
+        if (data.jwt) {
+          storeUser(data);
+          console.log("You are logged in successfully!");
+          setUser(initialUser);
+          navigate("/");
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <Container>
@@ -100,8 +129,11 @@ const Login = () => {
             <InputContainer>
               <Label>Username*</Label>
               <Input
-                placeholder="username"
-                onChange={(e) => setUsername(e.target.value)}
+                type="email"
+                name="identifier"
+                value={user.identifier}
+                placeholder="Email address"
+                onChange={handleChange}
               />
             </InputContainer>
           </InputWrapper>
@@ -109,18 +141,22 @@ const Login = () => {
             <InputContainer>
               <Label>Password*</Label>
               <Input
-                placeholder="password"
+                placeholder="Password"
                 type="password"
-                onChange={(e) => setPassword(e.target.value)}
+                name="password"
+                value={user.password}
+                onChange={handleChange}
               />
             </InputContainer>
           </InputWrapper>
-          <Button onClick={handleClick} disabled={isFetching}>
-            Login
-          </Button>
-          {error && <Error>Something went wrong...</Error>}
-          <Link>Forgotten your password?</Link>
-          <Link>Create a new account</Link>
+          <Button onClick={handleLogin}>Login</Button>
+          {/* {error && <Error>Something went wrong...</Error>} */}
+          <NavLink to="" style={linkStyle}>
+            Forgotten your password?
+          </NavLink>
+          <NavLink to="/register" style={linkStyle}>
+            Create a new account
+          </NavLink>
         </Form>
       </Wrapper>
     </Container>

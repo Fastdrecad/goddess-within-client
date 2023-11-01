@@ -1,4 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.section`
@@ -76,7 +78,7 @@ const Button = styled.button`
   width: 40%;
   border: none;
   padding: 15px 20px;
-  background-color: lightgray;
+  background-color: #000000;
   color: white;
   cursor: pointer;
   width: 100%;
@@ -84,125 +86,88 @@ const Button = styled.button`
   font-weight: 800;
 `;
 
-//TODO focus input color #E8F0FE
-
 const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
+const initialUser = { email: "", password: "", username: "" };
+
 const Register = () => {
-  const userRef = useRef();
-  const errRef = useRef();
+  const [user, setUser] = useState(initialUser);
 
-  const [firstName, setFirstName] = useState("");
-  const [validFirstName, setValidFirstName] = useState(false);
-  const [firstNameFocus, setFirstNameFocus] = useState(false);
+  const navigate = useNavigate();
 
-  const [lastName, setLastName] = useState("");
-  const [validLastName, setValidLastName] = useState(false);
-  const [lastNameFocus, setLastNameFocus] = useState(false);
+  const signUp = async (e) => {
+    e.preventDefault();
+    try {
+      const url = `http://localhost:1337/api/auth/local/register`;
 
-  const [email, setEmail] = useState("");
-  const [validEmail, setValidEmail] = useState(false);
-  const [emailFocus, setEmailFocus] = useState(false);
+      if (user.username && user.email && user.password) {
+        const res = await axios.post(url, user);
+        if (res) {
+          setUser(initialUser);
+          navigate("/login");
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-  const [pwd, setPwd] = useState("");
-  const [validPwd, setValidPwd] = useState(false);
-  const [pwdFocus, setPwdFocus] = useState(false);
-
-  const [matchPwd, setMatchPwd] = useState("");
-  const [validMatch, setValidMatch] = useState(false);
-  const [matchFocus, setMatchFocus] = useState(false);
-
-  const [errMsg, setErrMsg] = useState("");
-  const [success, setSuccess] = useState(false);
-
-  useEffect(() => {
-    userRef.current.focus();
-  }, []);
-
-  useEffect(() => {
-    const result = EMAIL_REGEX.test(email);
-    console.log(result);
-    console.log(email);
-    setValidEmail(result);
-  }, [email]);
-
-  useEffect(() => {
-    const result = PWD_REGEX.test(pwd);
-    console.log(result);
-    console.log(pwd);
-    const match = pwd === matchPwd;
-    setValidMatch(match);
-  }, [pwd, matchPwd]);
-
-  useEffect(() => {
-    setErrMsg("");
-  }, [firstName, lastName, pwd, email, matchPwd]);
+  const handleUserChange = ({ target }) => {
+    const { name, value } = target;
+    console.log(name);
+    setUser((currentUser) => ({
+      ...currentUser,
+      [name]: value,
+    }));
+  };
 
   return (
     <Container>
       <Wrapper>
-        <ErrorMessage
-          ref={errRef}
-          className={errMsg ? "errMsg" : "offscreen"}
-          aria-live="assertive"
-        >
-          {errMsg}
-        </ErrorMessage>
         <Title>Create an account</Title>
         <Form>
           <InputWrapper>
             <InputContainer>
-              <Label htmlFor="firstName">First name*</Label>
+              <Label>Username*</Label>
               <Input
                 type="text"
-                id="firstName"
-                placeholder="First name"
-                ref={userRef}
-                autoComplete="off"
-                onChange={(e) => setFirstName(e.target.value)}
-                required
-                aria-invalid={validFirstName ? "false" : "true"}
-                aria-describedby="uidnote"
-                onFocus={() => setFirstNameFocus(true)}
-                onBlur={() => setFirstNameFocus(false)}
+                name="username"
+                value={user.username}
+                onChange={handleUserChange}
+                placeholder="Full name"
               />
-            </InputContainer>
-            <Requirements
-              id="uidnote"
-              className={
-                firstNameFocus && firstName && !validFirstName
-                  ? "instructions"
-                  : "offscreen"
-              }
-            >
-              4 to 24 characters. Must begin with a letter. <br />
-              Letters, numbers, underscores, hyphens allowed.
-            </Requirements>
-          </InputWrapper>
-          <InputWrapper>
-            <InputContainer>
-              <Label>Last name*</Label>
-              <Input placeholder="Last name" />
             </InputContainer>
           </InputWrapper>
           <InputWrapper>
             <InputContainer>
               <Label>Email address*</Label>
-              <Input placeholder="Email address" />
+              <Input
+                type="email"
+                name="email"
+                value={user.email}
+                onChange={handleUserChange}
+                placeholder="Email address"
+              />
             </InputContainer>
           </InputWrapper>
           <InputWrapper>
             <InputContainer>
               <Label>Password*</Label>
-              <Input placeholder="Password" />
+              <Input
+                type="password"
+                name="password"
+                value={user.password}
+                onChange={handleUserChange}
+                placeholder="Password"
+              />
             </InputContainer>
           </InputWrapper>
           <Agreement>
             By registering for an account, you agree to our <b>Terms of Use</b>.
             Please read our <b>Privacy Notice.</b>
           </Agreement>
-          <Button>Register</Button>
+          <Button onClick={signUp}>Register</Button>
         </Form>
       </Wrapper>
     </Container>

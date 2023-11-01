@@ -90,8 +90,30 @@ const Desc = styled.p`
   font-size: 16px;
 `;
 const Price = styled.span`
+  color: ${(props) => props.$clr};
+  display: flex;
+  gap: 20px;
   font-size: 25px;
   font-weight: 700;
+  margin: 20px 0;
+`;
+
+const Originally = styled.h3`
+  color: ${(props) => props.$clr};
+  /* font-weight: 400; */
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+`;
+
+const Discount = styled.span`
+  color: red;
+  text-decoration: none;
+  font-size: 15px;
+`;
+
+const OriginalPrice = styled.span`
+  text-decoration: line-through;
 `;
 
 const FilterContainer = styled.div`
@@ -209,6 +231,9 @@ const ButtonHeart = styled.button`
   }
 `;
 
+const Select = styled.select``;
+const Option = styled.option``;
+
 const Product = () => {
   const id = useParams().id;
   // console.log(id);
@@ -216,13 +241,13 @@ const Product = () => {
   // console.log(selectedImg);
   const [isActive, setActive] = useState("img");
   let quantity = 1;
-  let isLiked = false;
   const dispatch = useDispatch();
   const products = useSelector((state) => state.cart.products);
-  const product = useSelector((state) => state.wish.product);
-  console.log(product);
-  const { data, loading, error } = useFetch(`/products/${id}?populate=*`);
+  const { isLiked } = useSelector((state) => state.wish);
 
+  const { data, loading, error } = useFetch(`/products/${id}?populate=*`);
+  // const isLiked = new Array(Object.keys({ data }).length).fill(false);
+  console.log(data);
   console.log(isLiked);
 
   return (
@@ -287,15 +312,30 @@ const Product = () => {
               Outer fabric material: 100% acetate <br />
               Fabric: Satin <br /> Care instructions: Dry clean only
             </Desc>
-            <Price>{data?.attributes?.price} €</Price>
+            {/* <Price>{data?.attributes?.price} €</Price> */}
+            {data?.attributes?.discount ? (
+              <Price style={{ color: "red" }}>
+                {data?.attributes?.price} €
+              </Price>
+            ) : (
+              <Price>{data?.attributes?.price} €</Price>
+            )}
+            {data?.attributes?.discount && (
+              <Originally>
+                <OriginalPrice>
+                  Originally:{"  "}
+                  {Math.floor(
+                    (data?.attributes.price /
+                      (1 - data?.attributes?.discount / 100)) *
+                      100
+                  ) / 100}
+                  €
+                </OriginalPrice>
+                <Discount>-{data?.attributes?.discount}%</Discount>
+              </Originally>
+            )}
+
             <FilterContainer>
-              <Filter>
-                <FilterTitle>Color</FilterTitle>
-                {/* TODO: FILTER COLOR */}
-                {/* {product.color?.map((c) => (
-                  <FilterColor $bgr={c} key={c} onClick={() => setColor(c)} />
-              ))} */}
-              </Filter>
               {/* TODO: FILTER SIZE */}
               <Filter>
                 <FilterSize
@@ -303,42 +343,16 @@ const Product = () => {
                 // defaultValue={"placeholder"}
                 // name={"Choose your size"}
                 >
+                  <FilterSizeOption>Choose your size</FilterSizeOption>
                   {/* {product.size?.map((s) => (
                   <FilterSizeOption key={s}>
                     {s} Choose your size
                   </FilterSizeOption>
                 ))} */}
-                  <FilterSizeOption>Choose your size</FilterSizeOption>
                 </FilterSize>
               </Filter>
             </FilterContainer>
             <AddContainer>
-              {/* <AmountContainer>
-                <Remove
-                  onClick={() =>
-                    setQuantity((prev) => (prev === 1 ? 1 : prev - 1))
-                  }
-                  style={{
-                    cursor: "pointer",
-                    backgroundColor: "#e7e7e7",
-                    padding: "10px",
-                    borderRadius: "50%",
-                    fontSize: "18px",
-                  }}
-                />
-                <Amount>{quantity}</Amount>
-                <Add
-                  onClick={() => setQuantity((prev) => prev + 1)}
-                  style={{
-                    cursor: "pointer",
-                    backgroundColor: "#e7e7e7",
-                    padding: "10px",
-                    borderRadius: "50%",
-                    fontSize: "18px",
-                  }}
-                  type="button"
-                />
-              </AmountContainer> */}
               <BagContainer>
                 <Button
                   onClick={() =>
@@ -350,6 +364,7 @@ const Product = () => {
                         price: data.attributes.price,
                         img: data.attributes.img.data.attributes.url,
                         quantity,
+                        isLiked,
                       })
                     )
                   }
@@ -361,11 +376,6 @@ const Product = () => {
                     dispatch(
                       like({
                         id: data.id,
-                        title: data.attributes.title,
-                        desc: data.attributes.desc,
-                        price: data.attributes.price,
-                        img: data.attributes.img.data.attributes.url,
-                        isLiked,
                       })
                     )
                   }

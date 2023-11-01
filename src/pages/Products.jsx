@@ -4,6 +4,7 @@ import { useState } from "react";
 import useFetch from "../hooks/useFetch";
 import { useParams } from "react-router-dom";
 import FeaturedProducts from "../components/FeaturedProducts";
+import Dropdown from "../components/Dropdown";
 
 const Container = styled.div`
   padding: 30px 50px;
@@ -51,23 +52,44 @@ const FilterText = styled.span`
 `;
 
 const Select = styled.select`
-  width: fit-content;
+  width: 15em;
   padding: 10px;
   margin-bottom: 20px;
   text-transform: uppercase;
+  border: 2px solid black;
 `;
 const Option = styled.option``;
 
+const options = {
+  size: ["XS", "S", "M", "L", "XL"],
+  price: ["PRICE (ASC)", "PRICE (DESC)"],
+};
+
+const title = { size: "Choose your size", price: "Sort by price" };
+
+const value = ["asc", "desc"];
+
 const Products = () => {
   const catId = parseInt(useParams().id);
+
   const [maxPrice, setMaxPrice] = useState(1000);
   const [sort, setSort] = useState("asc");
 
   const [selectedSubCats, setSelectedSubCats] = useState([]);
 
+  const [sortBySize, setSortBySize] = useState({});
+
   const { data, loading, error } = useFetch(
     `/sub-categories?[filters][categories][id][$eq]=${catId}`
   );
+
+  const handleSize = (e) => {
+    const value = e.target.value;
+
+    setSortBySize({ ...sortBySize, [e.target.value]: value });
+  };
+
+  console.log(sortBySize);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -101,40 +123,53 @@ const Products = () => {
           <FilterContainer>
             <Filter>
               <FilterText>Filter Products:</FilterText>
-              <Select name="color" defaultValue="placeholder">
-                <Option value="placeholder" disabled>
+              <Select name="price">
+                <Option value="" disabled>
                   price
                 </Option>
                 <Option>range</Option>
               </Select>
-              <Select name="size">
-                <Option disabled>Size</Option>
-                <Option>xs</Option>
-                <Option>s</Option>
-                <Option>m</Option>
-                <Option>l</Option>
-                <Option>xl</Option>
-              </Select>
-              {/* filter by price */}
-              <InputItem>
-                <span>0</span>
-                <Input
-                  type="range"
-                  min={0}
-                  max={1000}
-                  onChange={(e) => setMaxPrice(e.target.value)}
-                />
-                <span>{maxPrice}</span>
-              </InputItem>
-            </Filter>
+              {/* <Dropdown
+                options={options.price}
+                title={title.price}
+                value={value}
+              />
+              <Dropdown options={options.size} title={title.size} /> */}
 
-            <Filter>
-              <FilterText>Sort Products:</FilterText>
+              <Select name="size" onChange={handleSize}>
+                <Option disabled value="">
+                  Choose your size
+                </Option>
+                <Option>XS</Option>
+                <Option>S</Option>
+                <Option>M</Option>
+                <Option>L</Option>
+                <Option>XL</Option>
+              </Select>
+
               {/* ------------ OLDER VERSION ----------- */}
+
               <Select onChange={(e) => setSort(e.target.value)}>
+                <Option value="" disabled>
+                  SORT BY PRICE
+                </Option>
                 <Option value="asc">price (asc)</Option>
                 <Option value="desc">price (desc)</Option>
               </Select>
+
+              {/* filter by price */}
+              <Filter>
+                <InputItem>
+                  <span>0</span>
+                  <Input
+                    type="range"
+                    min={0}
+                    max={1000}
+                    onChange={(e) => setMaxPrice(e.target.value)}
+                  />
+                  <span>{maxPrice}</span>
+                </InputItem>
+              </Filter>
             </Filter>
           </FilterContainer>
         </ContainerLeft>
@@ -145,6 +180,7 @@ const Products = () => {
             maxPrice={maxPrice}
             sort={sort}
             subCats={selectedSubCats}
+            sortBySize={sortBySize}
           />
         </ContainerRight>
       </Container>

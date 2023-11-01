@@ -71,7 +71,7 @@ const Season = styled.span`
 `;
 
 const Title = styled.h2`
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   color: ${(props) => props.$clr};
 `;
@@ -94,7 +94,7 @@ const Discount = styled.span`
 `;
 
 const Price = styled.h3`
-  color: #000000;
+  color: ${(props) => props.$clr};
   display: flex;
   gap: 20px;
 `;
@@ -116,26 +116,15 @@ const Like = styled.span`
   }
 `;
 
-const Card = ({ item, type }) => {
-  const isLiked = false; // temporarily
-  // console.log(item);
+const Card = ({ item, type, id, isLiked, res }) => {
+  const dispatch = useDispatch();
+  const items = useSelector((state) => state.wish);
+
   return (
     <Container>
-      <Like
-        onClick={() =>
-          dispatch(
-            like({
-              id: item.id,
-              title: item.attributes.title,
-              desc: item.attributes.desc,
-              price: item.attributes.price,
-              img: item.attributes.img.data.attributes.url,
-            })
-          )
-        }
-      >
+      <Like onClick={() => dispatch(like({ id, res }))}>
         <Badge color="secondary" overlap="rectangular">
-          {!isLiked ? (
+          {!item.isLiked ? (
             <BsHeart style={{ fontSize: "25px" }} />
           ) : (
             <BsHeartFill style={{ fontSize: "25px", fill: "red" }} />
@@ -170,11 +159,15 @@ const Card = ({ item, type }) => {
           </ImageContainer>
           <Title $clr={`${type === "featured" ? "#ffffff" : "#000000"}`}>
             {item?.attributes.title}
+            <br />
+            {item?.attributes.desc}
           </Title>
           {item?.attributes.discount ? (
             <Price style={{ color: "red" }}>{item?.attributes.price} €</Price>
           ) : (
-            <Price>{item?.attributes.price} €</Price>
+            <Price $clr={`${type === "featured" ? "#ffffff" : "#000000"}`}>
+              {item?.attributes.price} €
+            </Price>
           )}
           {item?.attributes.discount && (
             <Originally $clr={`${type === "featured" ? "#ffffff" : "#000000"}`}>

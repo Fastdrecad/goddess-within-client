@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  product: [],
+  items: [],
 };
 
 export const wishSlice = createSlice({
@@ -9,11 +9,11 @@ export const wishSlice = createSlice({
   initialState,
   reducers: {
     like: (state, action) => {
-      const item = state.product.find((item) => item.id === action.payload.id);
+      const item = state.items.find((item) => item.id === action.payload.id);
       if (item) {
         item.isLiked = !item.isLiked;
       } else {
-        state.product.push(action.payload);
+        state.items.push(item);
       }
     },
   },
