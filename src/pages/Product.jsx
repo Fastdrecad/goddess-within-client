@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { BsHeart } from "react-icons/bs";
 import useFetch from "../hooks/useFetch";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, liked } from "../redux/cartReducer";
+import { addToCart } from "../redux/cartReducer";
 import Dropdown from "../components/Dropdown";
 
 const Container = styled.div`
@@ -230,14 +230,6 @@ const ButtonHeart = styled.button`
   }
 `;
 
-const sizes = [
-  { label: "XS", value: "xs" },
-  { label: "S", value: "s" },
-  { label: "M", value: "m" },
-  { label: "L", value: "l" },
-  { label: "XL", value: "xl" },
-];
-
 const title = { size: "Choose your size" };
 
 const Product = () => {
@@ -259,6 +251,15 @@ const Product = () => {
   const { data, loading, error } = useFetch(`/products/${id}?populate=*`);
 
   console.log(data);
+
+  const sizes = data?.attributes?.sizes?.data.map((item) => {
+    let label;
+    let value;
+    label = item.attributes.size_value;
+    value = item.attributes.size_value;
+
+    return { label, value };
+  });
 
   return (
     <Container>
@@ -347,6 +348,7 @@ const Product = () => {
 
             <FilterContainer>
               <Filter>
+                {/* TODO: SHOW ONLY AVAILABLE SIZES */}
                 <Dropdown
                   options={sizes}
                   title={title.size}
@@ -368,6 +370,7 @@ const Product = () => {
                         price: data.attributes.price,
                         img: data.attributes.img.data.attributes.url,
                         quantity,
+                        size: size.value,
                       })
                     )
                   }
@@ -375,10 +378,10 @@ const Product = () => {
                   add to bag
                 </Button>
                 <ButtonHeart
-                  onClick={() =>
-                    dispatch(liked({ id: data.id, isLiked: false }))
-                  }
-                  // className={`${isLiked ? "active" : ""}`}
+                // onClick={() =>
+                //   dispatch(liked({ id: data.id, isLiked: false }))
+                // }
+                // className={`${isLiked ? "active" : ""}`}
                 >
                   <BsHeart style={{ fontSize: "25px" }} />
                 </ButtonHeart>

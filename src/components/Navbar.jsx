@@ -64,8 +64,8 @@ const MenuItemPerson = styled.span`
   margin-inline: 18px;
   cursor: pointer;
   padding: 5px;
-  z-index: 5;
-  background-color: white;
+  padding-bottom: 10px;
+  background-color: #ffffff;
   border: 2px solid transparent;
   border-bottom: none;
 
@@ -100,6 +100,10 @@ const Language = styled.span`
   cursor: pointer;
 `;
 
+const ProfileContainer = styled.div`
+  z-index: 15;
+`;
+
 const SearchContainer = styled.div`
   border: 1px solid black;
   display: flex;
@@ -122,11 +126,12 @@ const Navbar = () => {
 
   const products = useSelector((state) => state.cart.products);
 
+  const handleMouseEnter = () => {
+    setIsHovering(true);
+  };
+
   const handleMouseLeave = () => {
-    setTimeout(() => {
-      setIsHovering(!isHovering);
-    }, 100);
-    clearTimeout(handleMouseLeave);
+    setIsHovering(false);
   };
 
   return (
@@ -168,14 +173,17 @@ const Navbar = () => {
               style={{ color: "#333", fontSize: "30px", userSelect: "none" }}
             />
           </SearchContainer>
-          <MenuItemPerson
-            onMouseEnter={() => setIsHovering(!isHovering)}
-            className={`${isHovering ? "active" : ""}`}
+          <ProfileContainer
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
           >
-            <Badge color="secondary" overlap="rectangular">
-              <GoPerson style={{ fontSize: "25px" }} />
-            </Badge>
-          </MenuItemPerson>
+            <MenuItemPerson className={`${isHovering ? "active" : ""}`}>
+              <Badge color="secondary" overlap="rectangular">
+                <GoPerson style={{ fontSize: "25px" }} />
+              </Badge>
+            </MenuItemPerson>
+            {isHovering && <ProfileTab />}
+          </ProfileContainer>
           <MenuItem>
             <Badge
               color="secondary"
@@ -204,9 +212,6 @@ const Navbar = () => {
           </MenuItem>
         </Right>
       </Wrapper>
-      {isHovering && (
-        <ProfileTab setIsHovering={setIsHovering} isHovering={isHovering} />
-      )}
     </Container>
   );
 };

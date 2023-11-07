@@ -163,7 +163,7 @@ const Products = () => {
             catId={catId}
             maxPrice={maxPrice}
             subCats={selectedSubCats}
-            sort={`${!value?.value ? "asc" : value.value}`}
+            sort={`${!value?.value ? "" : value.value}`}
             size={`${!size?.value ? "" : size.value}`}
           />
         </ContainerRight>

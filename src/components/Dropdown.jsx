@@ -95,7 +95,7 @@ const Dropdown = ({ value, options, onChange, title }) => {
     setIsOpen(false);
   };
 
-  const renderedOptions = options.map((option) => {
+  const renderedOptions = options?.map((option) => {
     return (
       <ListItem onClick={() => handleChange(option)} key={option.value}>
         {option.label}

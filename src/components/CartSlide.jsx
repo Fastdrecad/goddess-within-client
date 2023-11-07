@@ -258,6 +258,7 @@ const CartSlide = () => {
                     price={item.price}
                     img={item.img}
                     quantity={item.quantity}
+                    size={item.size}
                   />
                 </CartSlideList>
               ))}

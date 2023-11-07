@@ -58,7 +58,7 @@ const CounterContainer = styled.div`
 `;
 const Amount = styled.h1``;
 
-const CartSlideItem = ({ id, title, desc, price, img, quantity }) => {
+const CartSlideItem = ({ id, title, desc, price, img, quantity, size }) => {
   const products = useSelector((state) => state.cart.products);
   console.log(products);
 
@@ -78,10 +78,10 @@ const CartSlideItem = ({ id, title, desc, price, img, quantity }) => {
             <Remove
               onClick={() => {
                 if (quantity === 1) {
-                  dispatch(removeItem({ id }));
+                  dispatch(removeItem({ size }));
                   return;
                 }
-                dispatch(decrement({ id }));
+                dispatch(decrement({ size }));
               }}
               style={{
                 fontSize: "10px",
@@ -100,12 +100,12 @@ const CartSlideItem = ({ id, title, desc, price, img, quantity }) => {
                 border: "1px solid #dedede",
                 cursor: "pointer",
               }}
-              onClick={() => dispatch(increment({ id }))}
+              onClick={() => dispatch(increment({ size }))}
             />
           </CounterLeft>
           <Trash
             style={{ cursor: "pointer" }}
-            onClick={() => dispatch(removeItem({ id }))}
+            onClick={() => dispatch(removeItem({ size }))}
           >
             <BsTrash />
           </Trash>

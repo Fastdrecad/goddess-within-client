@@ -121,11 +121,10 @@ const ProductPrice = styled.div`
   font-weight: 600;
 `;
 
-const CartItem = ({ id, title, desc, price, img, quantity }) => {
+const CartItem = ({ id, title, desc, price, img, quantity, size }) => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.cart.products);
   console.log(products);
-  console.log({ id });
 
   return (
     <CartItemContent>
@@ -142,20 +141,14 @@ const CartItem = ({ id, title, desc, price, img, quantity }) => {
             <span>Id: </span>
             {id}
           </ProductId>
-          <ProductColorContainer>
-            <span>Color: </span>
-            <ProductColor
-            //  $bgr={item.color}
-            />
-          </ProductColorContainer>
           <ProductSize>
             <span>Size: </span>
-            {/* {size} */}
+            {size}
           </ProductSize>
           <Bin>
             <Trash
               style={{ cursor: "pointer" }}
-              onClick={() => dispatch(removeItem({ id }))}
+              onClick={() => dispatch(removeItem({ size }))}
             >
               <BsTrash style={{ marginRight: "5px" }} />
               Remove
@@ -179,10 +172,10 @@ const CartItem = ({ id, title, desc, price, img, quantity }) => {
             }}
             onClick={() => {
               if (quantity === 1) {
-                dispatch(removeItem({ id }));
+                dispatch(removeItem({ size }));
                 return;
               }
-              dispatch(decrement({ id }));
+              dispatch(decrement({ size }));
             }}
           />
           <ProductAmount>{quantity}</ProductAmount>
@@ -194,7 +187,7 @@ const CartItem = ({ id, title, desc, price, img, quantity }) => {
               padding: "5px",
               cursor: "pointer",
             }}
-            onClick={() => dispatch(increment({ id }))}
+            onClick={() => dispatch(increment({ size }))}
           />
         </ProductAmountContainer>
         <ProductPrice>{price} €</ProductPrice>

@@ -4,14 +4,15 @@ import { userData } from "../helpers";
 
 const Container = styled.div`
   width: 335px;
-  inset: -2px 0px auto auto;
+  inset: 0px 0px auto auto;
   position: absolute;
-  transform: translate(-160px, 67px);
+  transform: translate(-160px, 62px);
   transition: all 2s ease;
   border: 2px solid black;
   box-sizing: border-box;
   background-color: white;
-  z-index: 4;
+  overflow: hidden;
+  z-index: -1;
 `;
 
 const UnorderedList = styled.ul`
@@ -21,6 +22,10 @@ const UnorderedList = styled.ul`
   justify-content: space-evenly;
   flex-direction: column;
   height: 100%;
+
+  &:not(:first-child) {
+    padding: 16px;
+  }
 `;
 
 const Button = styled.button`
@@ -49,18 +54,17 @@ const ListItem = styled.li`
   display: flex;
   align-items: center;
   justify-content: center;
-  display: block;
   display: flex;
+  padding: 16px;
 
   &:hover:not(:first-child) {
+    cursor: pointer;
     background-color: #eaeaea;
     width: 100%;
   }
 `;
 
-const Account = styled.span`
-  padding: 16px;
-`;
+const Account = styled.span``;
 
 const Item = styled.span``;
 
@@ -81,57 +85,43 @@ const Description = styled.span`
 
 const linkStyle = {
   width: "100%",
+  height: "100%",
 };
 
-const ProfileTab = ({ setIsHovering, isHovering }) => {
+const ProfileTab = () => {
   const { username } = userData();
 
-  const handleMouseLeave = () => {
-    setTimeout(() => {
-      setIsHovering(!isHovering);
-    }, 100);
-    clearTimeout(handleMouseLeave);
-  };
-
   return (
-    <Container onMouseLeave={handleMouseLeave}>
+    <Container>
       <UnorderedList>
         {!username && (
-          <ListItem>
+          <ListItem style={{ padding: "0" }}>
             <NavLink to="/login" style={linkStyle}>
               <Button>Login</Button>
             </NavLink>
           </ListItem>
         )}
         <ListItem>
-          <Account>
-            <NavLink to="/register">
-              <Item>
-                Your account {`${!username ? "" : username.split(" ")[0]}`}
-              </Item>
-            </NavLink>
-          </Account>
+          <NavLink to="/register" style={linkStyle}>
+            <Item>
+              Your account {`${!username ? "" : username.split(" ")[0]}`}
+            </Item>
+          </NavLink>
         </ListItem>
         <ListItem>
-          <Account>
-            <NavLink>
-              <Item>Orders</Item>
-            </NavLink>
-          </Account>
+          <NavLink>
+            <Item>Orders</Item>
+          </NavLink>
         </ListItem>
         <ListItem>
-          <Account>
-            <NavLink>
-              <Item>Return an item</Item>
-            </NavLink>
-          </Account>
+          <NavLink>
+            <Item>Return an item</Item>
+          </NavLink>
         </ListItem>
         <ListItem>
-          <Account>
-            <NavLink>
-              <Item>Help & FAQ</Item>
-            </NavLink>
-          </Account>
+          <NavLink>
+            <Item>Help & FAQ</Item>
+          </NavLink>
         </ListItem>
       </UnorderedList>
       <Logout>

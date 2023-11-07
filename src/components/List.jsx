@@ -16,7 +16,7 @@ const List = ({ catId, maxPrice, sort, subCats, size }) => {
       (item) => `&[filters][sub_categories][id][$eq]=${item}`
     )}${
       size ? "&[filters][sizes][size_value][$eq]=" + size : ""
-    }&[filters][price][$lte]=${maxPrice}&sort=price:${sort}`
+    }&[filters][price][$lte]=${maxPrice}${sort ? "&sort=price:" + sort : ""}`
   );
 
   return (
