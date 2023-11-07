@@ -250,9 +250,8 @@ const CartSlide = () => {
           <DrawerInner>
             <ContainerItem>
               {products?.map((item) => (
-                <CartSlideList>
+                <CartSlideList key={new Date().getTime + Math.random()}>
                   <CartSlideItem
-                    key={new Date().getTime + Math.random()}
                     id={item.id}
                     title={item.title}
                     desc={item.desc}

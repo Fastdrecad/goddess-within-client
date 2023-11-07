@@ -1,9 +1,8 @@
 import { Badge } from "@material-ui/core";
 import { BsHeart, BsHeartFill } from "react-icons/bs";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { like } from "../redux/wishReducer";
+import { useState } from "react";
 
 const Container = styled.div`
   display: flex;
@@ -116,18 +115,31 @@ const Like = styled.span`
   }
 `;
 
-const Card = ({ item, type, id, isLiked, res }) => {
-  const dispatch = useDispatch();
-  const items = useSelector((state) => state.wish);
+const Card = ({ item, type, id }) => {
+  const [isLiked, setIsLiked] = useState(false);
+  const [likedItems, setLikedItems] = useState([]);
+
+  const handleLike = () => {
+    let currentLikedItems = likedItems;
+    if (!isLiked) {
+      setIsLiked(true);
+      if (currentLikedItems.includes(id))
+        setLikedItems([...currentLikedItems, id]);
+    } else {
+      setIsLiked(false);
+      if (currentLikedItems.includes(id))
+        setLikedItems(currentLikedItems.filter((item) => item !== id));
+    }
+  };
 
   return (
     <Container>
-      <Like onClick={() => dispatch(like({ id, res }))}>
+      <Like onClick={handleLike}>
         <Badge color="secondary" overlap="rectangular">
-          {!item.isLiked ? (
-            <BsHeart style={{ fontSize: "25px" }} />
-          ) : (
+          {isLiked ? (
             <BsHeartFill style={{ fontSize: "25px", fill: "red" }} />
+          ) : (
+            <BsHeart style={{ fontSize: "25px" }} />
           )}
         </Badge>
       </Like>

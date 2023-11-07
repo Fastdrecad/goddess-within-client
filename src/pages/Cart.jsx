@@ -3,7 +3,6 @@ import { Add, Remove } from "@material-ui/icons";
 import { BsHeartFill, BsTrash } from "react-icons/bs";
 import FeaturedProducts from "../components/FeaturedProducts";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
 import CartItem from "../components/CartItem";
 import { loadStripe } from "@stripe/stripe-js";
 import { makeRequest } from "../requestMethods";
@@ -205,9 +204,10 @@ const Button = styled.button`
   text-transform: uppercase;
   width: 100%;
   padding: 12px;
-  background-color: black;
+  background-color: #e70000;
   color: white;
   font-size: 14px;
+  font-weight: 800;
 
   &:hover {
     opacity: 0.5;

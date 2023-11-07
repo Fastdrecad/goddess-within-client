@@ -1,14 +1,12 @@
 import styled from "styled-components";
 import FeaturedProducts from "../components/FeaturedProducts";
-import { Add, Remove } from "@material-ui/icons";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { BsHeart } from "react-icons/bs";
-import { HiScale } from "react-icons/hi2";
 import useFetch from "../hooks/useFetch";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../redux/cartReducer";
-import { like } from "../redux/wishReducer";
+import { addToCart, liked } from "../redux/cartReducer";
+import Dropdown from "../components/Dropdown";
 
 const Container = styled.div`
   font-family: "HelveticaNowText-Regular";
@@ -126,6 +124,7 @@ const FilterContainer = styled.div`
 
 const Filter = styled.div`
   display: flex;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
   position: relative;
@@ -231,24 +230,35 @@ const ButtonHeart = styled.button`
   }
 `;
 
-const Select = styled.select``;
-const Option = styled.option``;
+const sizes = [
+  { label: "XS", value: "xs" },
+  { label: "S", value: "s" },
+  { label: "M", value: "m" },
+  { label: "L", value: "l" },
+  { label: "XL", value: "xl" },
+];
+
+const title = { size: "Choose your size" };
 
 const Product = () => {
+  const [size, setSize] = useState(null);
   const id = useParams().id;
   // console.log(id);
   const [selectedImg, setSelectedImg] = useState("img");
   // console.log(selectedImg);
   const [isActive, setActive] = useState("img");
   let quantity = 1;
+  let isLiked = false;
   const dispatch = useDispatch();
   const products = useSelector((state) => state.cart.products);
-  const { isLiked } = useSelector((state) => state.wish);
+
+  const handleChangeSize = (size) => {
+    setSize(size);
+  };
 
   const { data, loading, error } = useFetch(`/products/${id}?populate=*`);
-  // const isLiked = new Array(Object.keys({ data }).length).fill(false);
+
   console.log(data);
-  console.log(isLiked);
 
   return (
     <Container>
@@ -336,20 +346,14 @@ const Product = () => {
             )}
 
             <FilterContainer>
-              {/* TODO: FILTER SIZE */}
               <Filter>
-                <FilterSize
-                // onChange={(e) => setSize(e.target.value)}
-                // defaultValue={"placeholder"}
-                // name={"Choose your size"}
-                >
-                  <FilterSizeOption>Choose your size</FilterSizeOption>
-                  {/* {product.size?.map((s) => (
-                  <FilterSizeOption key={s}>
-                    {s} Choose your size
-                  </FilterSizeOption>
-                ))} */}
-                </FilterSize>
+                <Dropdown
+                  options={sizes}
+                  title={title.size}
+                  value={size}
+                  onChange={handleChangeSize}
+                  style={{ width: "100% !important" }}
+                />
               </Filter>
             </FilterContainer>
             <AddContainer>
@@ -364,7 +368,6 @@ const Product = () => {
                         price: data.attributes.price,
                         img: data.attributes.img.data.attributes.url,
                         quantity,
-                        isLiked,
                       })
                     )
                   }
@@ -373,31 +376,13 @@ const Product = () => {
                 </Button>
                 <ButtonHeart
                   onClick={() =>
-                    dispatch(
-                      like({
-                        id: data.id,
-                      })
-                    )
+                    dispatch(liked({ id: data.id, isLiked: false }))
                   }
-                  className={`${isLiked ? "active" : ""}`}
+                  // className={`${isLiked ? "active" : ""}`}
                 >
                   <BsHeart style={{ fontSize: "25px" }} />
                 </ButtonHeart>
               </BagContainer>
-              {/* <BagContainer>
-                <Button
-                // onClick={handleClick}
-                >
-                  add to compare
-                </Button>
-                <ButtonHeart
-                //  onClick={handleClick}
-                >
-                  <HiScale
-                    style={{ fontSize: "25px", fontWeight: "lighter" }}
-                  />
-                </ButtonHeart>
-              </BagContainer> */}
             </AddContainer>
           </InfoContainer>
         </Wrapper>

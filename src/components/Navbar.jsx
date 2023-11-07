@@ -135,7 +135,7 @@ const Navbar = () => {
         <Left>
           <MenuItem>
             <NavbarLink
-              to="/products/1"
+              to="/"
               onClick={() => setActive(!active)}
               className={`${active} ? "active" : "`}
             >
@@ -143,13 +143,13 @@ const Navbar = () => {
             </NavbarLink>
           </MenuItem>
           <MenuItem>
-            <NavbarLink to="/products/2">Ready to wear</NavbarLink>
+            <NavbarLink to="/products/1">Ready to wear</NavbarLink>
           </MenuItem>
           <MenuItem>
-            <NavbarLink to="/products/3">Beauty</NavbarLink>
+            <NavbarLink to="/products/2">Beauty</NavbarLink>
           </MenuItem>
           <MenuItem>
-            <NavbarLink to="/products/5">Sale %</NavbarLink>
+            <NavbarLink to="/products/3">Sale %</NavbarLink>
           </MenuItem>
         </Left>
         <Center>

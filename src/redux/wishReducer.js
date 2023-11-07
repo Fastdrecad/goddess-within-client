@@ -1,25 +1,31 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  items: [],
+  isLiked: false,
 };
 
 export const wishSlice = createSlice({
   name: "wish",
   initialState,
   reducers: {
-    like: (state, action) => {
-      const item = state.items.find((item) => item.id === action.payload.id);
-      if (item) {
-        item.isLiked = !item.isLiked;
+    likedItems: (state, action) => {
+      let currentLikedItems = likedItems;
+      if (!isLiked) {
+        state.isLiked = true;
+        if (currentLikedItems.includes(id))
+          state.likedItems.push([...currentLikedItems], action.payload.id);
       } else {
-        state.items.push(item);
+        state.isLiked = false;
+        if (currentLikedItems.includes(id))
+          state.likedItems(
+            currentLikedItems.filter((item) => item !== action.payload.id)
+          );
       }
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { like } = wishSlice.actions;
+export const { likedItems } = wishSlice.actions;
 
 export default wishSlice.reducer;

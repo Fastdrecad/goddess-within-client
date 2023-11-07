@@ -1,12 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  MdOutlineKeyboardArrowDown,
+  MdOutlineKeyboardArrowUp,
+} from "react-icons/md";
 import styled from "styled-components";
 
 const DropDownContainer = styled.div`
-  width: 15em;
+  position: relative;
   margin-bottom: 20px;
+  width: 100%;
 `;
 
 const DropDownHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   user-select: none;
   padding: 10px;
   font-weight: 500;
@@ -26,7 +34,7 @@ const DropDownHeader = styled.div`
 const DropDownListContainer = styled.div`
   position: absolute;
   z-index: 100;
-  width: 15em;
+  width: 100%;
 `;
 
 const DropDownList = styled.ul`
@@ -60,35 +68,57 @@ const ListItem = styled.li`
   }
 `;
 
-const Dropdown = ({ options, title, value }) => {
+const Dropdown = ({ value, options, onChange, title }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
 
-  const toggling = () => setIsOpen(!isOpen);
+  const dropDownRef = useRef();
 
-  const onOptionClicked = (value) => () => {
-    setSelectedOption(value);
-    setIsOpen(false);
-    console.log(selectedOption);
+  const handleClick = () => {
+    setIsOpen(!isOpen);
   };
 
+  useEffect(() => {
+    const handleDropdownClick = (e) => {
+      if (!dropDownRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("click", handleDropdownClick, true);
+
+    return () => {
+      document.removeEventListener("click", handleDropdownClick, true);
+    };
+  }, []);
+
+  const handleChange = (option) => {
+    onChange(option);
+    setIsOpen(false);
+  };
+
+  const renderedOptions = options.map((option) => {
+    return (
+      <ListItem onClick={() => handleChange(option)} key={option.value}>
+        {option.label}
+      </ListItem>
+    );
+  });
+
   return (
-    <DropDownContainer>
+    <DropDownContainer ref={dropDownRef}>
       <DropDownHeader
-        onClick={toggling}
+        onClick={handleClick}
         className={`${isOpen ? "active" : ""}`}
       >
-        {selectedOption || title}
+        {value?.label || title}
+        {isOpen ? (
+          <MdOutlineKeyboardArrowUp style={{ fontSize: "25px" }} />
+        ) : (
+          <MdOutlineKeyboardArrowDown style={{ fontSize: "25px" }} />
+        )}
       </DropDownHeader>
       {isOpen && (
         <DropDownListContainer>
-          <DropDownList>
-            {options.map((option) => (
-              <ListItem onClick={onOptionClicked(option)} key={Math.random()}>
-                {option}
-              </ListItem>
-            ))}
-          </DropDownList>
+          <DropDownList>{renderedOptions}</DropDownList>
         </DropDownListContainer>
       )}
     </DropDownContainer>

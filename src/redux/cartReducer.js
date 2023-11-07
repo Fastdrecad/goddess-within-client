@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   products: [],
+  isLiked: false,
+  likedItems: [],
 };
 
 export const cartSlice = createSlice({
@@ -33,11 +35,16 @@ export const cartSlice = createSlice({
       const item = state.products.find((item) => item.id === action.payload.id);
       item.quantity--;
     },
+    liked: (state, action) => {
+      const item = state.products.find((item) => item.id === action.payload.id);
+      item.isLiked = true;
+      state.likedItems.push(action.payload.id);
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addToCart, removeItem, resetCart, increment, decrement, like } =
+export const { addToCart, removeItem, resetCart, increment, decrement, liked } =
   cartSlice.actions;
 
 export default cartSlice.reducer;

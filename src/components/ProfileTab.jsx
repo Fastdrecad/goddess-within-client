@@ -107,8 +107,7 @@ const ProfileTab = ({ setIsHovering, isHovering }) => {
           <Account>
             <NavLink to="/register">
               <Item>
-                Your account{" "}
-                {`${!username ? username : username.split(" ")[0]}`}
+                Your account {`${!username ? "" : username.split(" ")[0]}`}
               </Item>
             </NavLink>
           </Account>
