@@ -330,20 +330,35 @@ const Product = () => {
             {/* <Price>{data?.attributes?.price} €</Price> */}
             {data?.attributes?.discount ? (
               <Price style={{ color: "red" }}>
-                {data?.attributes?.price} €
+                {new Intl.NumberFormat("de-DE", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                }).format(data?.attributes?.price)}{" "}
+                €
               </Price>
             ) : (
-              <Price>{data?.attributes?.price} €</Price>
+              <Price>
+                {new Intl.NumberFormat("de-DE", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                }).format(data?.attributes?.price)}{" "}
+                €
+              </Price>
             )}
             {data?.attributes?.discount && (
               <Originally>
                 <OriginalPrice>
                   Originally:{"  "}
-                  {Math.floor(
-                    (data?.attributes.price /
-                      (1 - data?.attributes?.discount / 100)) *
-                      100
-                  ) / 100}
+                  {new Intl.NumberFormat("de-DE", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  }).format(
+                    Math.floor(
+                      (data?.attributes.price /
+                        (1 - data?.attributes?.discount / 100)) *
+                        100
+                    ) / 100
+                  )}
                   €
                 </OriginalPrice>
                 <Discount>-{data?.attributes?.discount}%</Discount>

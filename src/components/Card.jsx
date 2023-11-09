@@ -175,21 +175,36 @@ const Card = ({ item, type, id }) => {
             {item?.attributes.desc}
           </Title>
           {item?.attributes.discount ? (
-            <Price style={{ color: "red" }}>{item?.attributes.price} €</Price>
+            <Price style={{ color: "red" }}>
+              {new Intl.NumberFormat("de-DE", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              }).format(item?.attributes.price)}{" "}
+              €
+            </Price>
           ) : (
             <Price $clr={`${type === "featured" ? "#ffffff" : "#000000"}`}>
-              {item?.attributes.price} €
+              {new Intl.NumberFormat("de-DE", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              }).format(item?.attributes.price)}{" "}
+              €
             </Price>
           )}
           {item?.attributes.discount && (
             <Originally $clr={`${type === "featured" ? "#ffffff" : "#000000"}`}>
               <OriginalPrice>
                 Originally:{"  "}
-                {Math.floor(
-                  (item?.attributes.price /
-                    (1 - item?.attributes.discount / 100)) *
-                    100
-                ) / 100}
+                {new Intl.NumberFormat("de-DE", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                }).format(
+                  Math.floor(
+                    (item?.attributes.price /
+                      (1 - item?.attributes.discount / 100)) *
+                      100
+                  ) / 100
+                )}
                 €
               </OriginalPrice>
               <Discount>-{item?.attributes.discount}%</Discount>

@@ -266,7 +266,14 @@ const CartSlide = ({ onClose, showCartSlide }) => {
             <Total>
               <TotalCost>
                 <Subtotal>subtotal</Subtotal>
-                <Cost> {totalPrice()} €</Cost>
+                <Cost>
+                  {" "}
+                  {new Intl.NumberFormat("de-DE", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  }).format(totalPrice())}{" "}
+                  €
+                </Cost>
               </TotalCost>
               <NavLink to="/cart">
                 <CheckoutButton>go to checkout</CheckoutButton>

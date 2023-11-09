@@ -117,7 +117,12 @@ const CartSlideItem = ({ id, title, desc, price, img, quantity, size }) => {
             <BsTrash />
           </Trash>
           <Price>
-            {quantity} x {price} €
+            {quantity} x{" "}
+            {new Intl.NumberFormat("de-DE", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            }).format(price.toFixed(2))}{" "}
+            €
           </Price>
         </CounterContainer>
       </Details>
