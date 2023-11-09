@@ -189,7 +189,13 @@ const CartItem = ({ id, title, desc, price, img, quantity, size }) => {
             onClick={() => dispatch(increment({ size }))}
           />
         </ProductAmountContainer>
-        <ProductPrice>{price} €</ProductPrice>
+        <ProductPrice>
+          {new Intl.NumberFormat("de-DE", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          }).format(price)}{" "}
+          €
+        </ProductPrice>
       </PriceDetail>
     </CartItemContent>
   );
