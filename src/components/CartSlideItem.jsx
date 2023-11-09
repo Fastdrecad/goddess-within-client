@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { increment, decrement, removeItem } from "../redux/cartReducer.js";
 import { BsTrash } from "react-icons/bs";
+import { NavLink } from "react-router-dom";
 
 const CartSlideItemContent = styled.div`
   display: flex;
@@ -45,11 +46,15 @@ const Trash = styled.span`
   color: #a6a6a6;
 `;
 
-const Description = styled.p``;
-
-const Price = styled.span`
-  /* flex: 70%; */
+const Description = styled.p`
+  padding-bottom: 10px;
 `;
+const SelectedSize = styled.p`
+  font-family: "HelveticaNowText-Light";
+  font-weight: 200;
+`;
+
+const Price = styled.span``;
 
 const CounterContainer = styled.div`
   display: flex;
@@ -60,19 +65,21 @@ const Amount = styled.h1``;
 
 const CartSlideItem = ({ id, title, desc, price, img, quantity, size }) => {
   const products = useSelector((state) => state.cart.products);
-  console.log(products);
 
   const dispatch = useDispatch();
 
   return (
     <CartSlideItemContent>
-      <Image src={import.meta.env.VITE_REACT_APP_UPLOAD_URL + img} />
+      <NavLink to={`/product/${id}`}>
+        <Image src={import.meta.env.VITE_REACT_APP_UPLOAD_URL + img} />
+      </NavLink>
       <Details>
         <ProductTitle>{title}</ProductTitle>
         <Description>
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequatur,
           enim?
         </Description>
+        <SelectedSize>Size: {size}</SelectedSize>
         <CounterContainer>
           <CounterLeft>
             <Remove

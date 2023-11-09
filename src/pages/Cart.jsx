@@ -220,13 +220,11 @@ const Button = styled.button`
 
 const Cart = () => {
   const products = useSelector((state) => state.cart.products);
-  const dispatch = useDispatch();
   const totalPrice = () => {
     let total = 0;
     products.forEach((item) => (total += item.quantity * item.price));
     return total.toFixed(2);
   };
-  console.log(products);
   const stripePromise = loadStripe(
     "pk_test_51O2q5XFCjM1k0EDke6T3tMGgH1PtZ18VretDYLncIwwkCBBO3k5apeH8ojAT7wi2KburwOaozi8VEAhMyXvrimoO00QysDU0Aw"
   );

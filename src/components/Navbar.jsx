@@ -23,7 +23,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  padding: 10px 20px;
+  padding: 10px 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -138,29 +138,30 @@ const Navbar = () => {
     <Container>
       <Wrapper>
         <Left>
-          <MenuItem>
-            <NavbarLink
-              to="/"
-              onClick={() => setActive(!active)}
-              className={`${active} ? "active" : "`}
-            >
-              New Arrivals
-            </NavbarLink>
-          </MenuItem>
-          <MenuItem>
-            <NavbarLink to="/products/1">Ready to wear</NavbarLink>
-          </MenuItem>
-          <MenuItem>
-            <NavbarLink to="/products/2">Beauty</NavbarLink>
-          </MenuItem>
-          <MenuItem>
-            <NavbarLink to="/products/3">Sale %</NavbarLink>
-          </MenuItem>
-        </Left>
-        <Center>
           <NavLink to="/" style={{ textDecoration: "none", color: "black" }}>
             <Logo>Goddess Within</Logo>
           </NavLink>
+        </Left>
+        <Center>
+          {" "}
+          <MenuItem>
+            <NavbarLink
+              to="/products/1"
+              onClick={() => setActive(!active)}
+              className={`${active} ? "active" : "`}
+            >
+              Ready to wear
+            </NavbarLink>
+          </MenuItem>
+          <MenuItem>
+            <NavbarLink to="/products/2">New Arrivals</NavbarLink>
+          </MenuItem>
+          <MenuItem>
+            <NavbarLink to="/products/3">Beauty</NavbarLink>
+          </MenuItem>
+          <MenuItem>
+            <NavbarLink to="/products/4">Sale %</NavbarLink>
+          </MenuItem>
         </Center>
         <Right>
           <LanguageContainer>

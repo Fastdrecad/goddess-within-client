@@ -206,14 +206,6 @@ const CartSlide = () => {
     return total.toFixed(2);
   };
 
-  // useEffect(() => {
-  //   document.body.classList.add("overflowHidden");
-
-  //   return () => {
-  //     document.body.classList.remove("overflowHidden");
-  //   };
-  // }, []);
-
   const stripePromise = loadStripe(
     "pk_test_51O2q5XFCjM1k0EDke6T3tMGgH1PtZ18VretDYLncIwwkCBBO3k5apeH8ojAT7wi2KburwOaozi8VEAhMyXvrimoO00QysDU0Aw"
   );
