@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   max-width: 1200px; // responsive unit
   display: flex;
   margin: 0 auto;
-  height: fit-content;
+  /* height: fit-content; */
   background-color: #f3f3f3;
   padding: 20px;
 `;
@@ -43,7 +43,7 @@ const Right = styled.div`
   height: fit-content;
   flex: 1;
   position: sticky;
-  top: 0;
+  top: 110px;
 `;
 
 const Info = styled.div``;

@@ -274,7 +274,8 @@ const Product = () => {
                   <Img
                     src={
                       import.meta.env.VITE_REACT_APP_UPLOAD_URL +
-                      data?.attributes?.img?.data?.attributes?.url
+                      data?.attributes?.img?.data?.attributes?.formats
+                        ?.thumbnail?.url
                     }
                     onMouseOver={(e) => {
                       setSelectedImg("img");
@@ -285,7 +286,8 @@ const Product = () => {
                   <Img
                     src={
                       import.meta.env.VITE_REACT_APP_UPLOAD_URL +
-                      data?.attributes?.img2?.data?.attributes?.url
+                      data?.attributes?.img2?.data?.attributes?.formats
+                        ?.thumbnail?.url
                     }
                     onMouseOver={(e) => {
                       setSelectedImg("img2");
@@ -296,7 +298,8 @@ const Product = () => {
                   <Img
                     src={
                       import.meta.env.VITE_REACT_APP_UPLOAD_URL +
-                      data?.attributes?.img3?.data?.attributes?.url
+                      data?.attributes?.img3?.data?.attributes?.formats
+                        ?.thumbnail?.url
                     }
                     onMouseOver={(e) => {
                       setSelectedImg("img3");
@@ -309,7 +312,8 @@ const Product = () => {
                   <Image
                     src={
                       import.meta.env.VITE_REACT_APP_UPLOAD_URL +
-                      data?.attributes?.[selectedImg]?.data?.attributes?.url
+                      data?.attributes?.[selectedImg]?.data?.attributes?.formats
+                        ?.large.url
                     }
                   />
                 </MainImage>
@@ -348,7 +352,6 @@ const Product = () => {
 
             <FilterContainer>
               <Filter>
-                {/* TODO: SHOW ONLY AVAILABLE SIZES */}
                 <Dropdown
                   options={sizes}
                   title={title.size}

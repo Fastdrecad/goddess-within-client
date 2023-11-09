@@ -159,13 +159,13 @@ const Card = ({ item, type, id }) => {
             <MainImage
               src={
                 import.meta.env.VITE_REACT_APP_UPLOAD_URL +
-                item.attributes?.img?.data?.attributes?.url
+                item.attributes?.img?.data?.attributes?.formats?.large?.url
               }
             />
             <SecondImage
               src={
                 import.meta.env.VITE_REACT_APP_UPLOAD_URL +
-                item.attributes?.img2.data?.attributes?.url
+                item.attributes?.img2.data?.attributes?.formats?.large?.url
               }
             />
           </ImageContainer>

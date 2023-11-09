@@ -27,13 +27,13 @@ export const categories = [
     id: 1,
     img: "/src/assets/categories/1.jpg",
     title: "Shirt Style!",
-    category: "New Arrivals",
+    category: "Ready to wear",
   },
   {
     id: 2,
     img: "/src/assets/categories/2.jpg",
     title: "Chic Skirt!",
-    category: "Ready to wear",
+    category: "New Arrivals",
   },
   {
     id: 3,

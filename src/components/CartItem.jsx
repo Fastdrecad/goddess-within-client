@@ -124,7 +124,6 @@ const ProductPrice = styled.div`
 const CartItem = ({ id, title, desc, price, img, quantity, size }) => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.cart.products);
-  console.log(products);
 
   return (
     <CartItemContent>
