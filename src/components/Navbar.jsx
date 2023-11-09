@@ -10,8 +10,7 @@ import { useState } from "react";
 import CartSlide from "./CartSlide";
 import ProfileTab from "./ProfileTab";
 import { useSelector } from "react-redux";
-import { MenuContext } from "../context/navContext";
-import { useContext } from "react";
+import { CSSTransition } from "react-transition-group";
 
 const Container = styled.div`
   height: 90px;
@@ -119,8 +118,8 @@ const Input = styled.input`
 `;
 
 const Navbar = () => {
-  const { toggle, menuOpen } = useContext(MenuContext);
   const [active, setActive] = useState(false);
+  const [showCartSlide, setShowCartSlide] = useState(false);
 
   const [isHovering, setIsHovering] = useState(false);
 
@@ -132,6 +131,14 @@ const Navbar = () => {
 
   const handleMouseLeave = () => {
     setIsHovering(false);
+  };
+
+  const handleMouseEnterBag = () => {
+    setShowCartSlide(true);
+  };
+
+  const handleClose = () => {
+    setShowCartSlide(false);
   };
 
   return (
@@ -186,15 +193,11 @@ const Navbar = () => {
             {isHovering && <ProfileTab />}
           </ProfileContainer>
           <MenuItem>
-            <Badge
-              color="secondary"
-              overlap="rectangular"
-              // badgeContent={products.length}
-            >
+            <Badge color="secondary" overlap="rectangular">
               <BsHeart style={{ fontSize: "25px" }} />
             </Badge>
           </MenuItem>
-          <MenuItem>
+          <MenuItem onMouseEnter={handleMouseEnterBag}>
             <Link to="/cart">
               <Badge
                 badgeContent={products.length}
@@ -204,15 +207,20 @@ const Navbar = () => {
                 <HiOutlineShoppingBag
                   style={{ fontSize: "25px" }}
                   color="action"
-                  onMouseEnter={() => {
-                    toggle();
-                  }}
                 />
               </Badge>
             </Link>
           </MenuItem>
         </Right>
       </Wrapper>
+      <CSSTransition
+        in={showCartSlide}
+        timeout={600}
+        classNames="modal"
+        unmountOnExit
+      >
+        <CartSlide onClose={handleClose} showCartSlide={showCartSlide} />
+      </CSSTransition>
     </Container>
   );
 };

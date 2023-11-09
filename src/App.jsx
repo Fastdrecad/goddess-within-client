@@ -22,13 +22,14 @@ import CartSlide from "./components/CartSlide";
 import Login from "./components/Login";
 // import { Protector } from "./helpers";
 import Logout from "./components/Logout";
+import GlobalStyle from "./globalStyles";
 
 const Layout = () => {
   return (
     <div className="app">
+      <GlobalStyle />
       <Announcement />
       <Navbar />
-      <CartSlide />
       <NavigateToTop />
       <Outlet />
       <Newsletter />

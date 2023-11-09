@@ -6,7 +6,7 @@ const Container = styled.div`
   width: 335px;
   inset: 0px 0px auto auto;
   position: absolute;
-  transform: translate(-160px, 62px);
+  transform: translate(-220px, 62px);
   transition: all 2s ease;
   border: 2px solid black;
   box-sizing: border-box;

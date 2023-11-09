@@ -1,4 +1,4 @@
-import { Add, Close, Remove } from "@material-ui/icons";
+import ReactDOM from "react-dom";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
@@ -10,15 +10,14 @@ import { useContext } from "react";
 import { MenuContext } from "../context/navContext";
 
 const ContainerBackground = styled.div`
-  position: absolute;
-  top: 0;
-  bottom: 0;
+  position: fixed;
   left: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  z-index: 9;
+  top: 0;
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 100;
 `;
 
 const Container = styled.div`
@@ -187,14 +186,11 @@ const CheckoutButton = styled.button`
   }
 `;
 
-const CartSlide = () => {
-  const { toggle, menuOpen } = useContext(MenuContext);
-  const [close, setClose] = useState(false);
-
+const CartSlide = ({ onClose, showCartSlide }) => {
   const handleMouseLeave = () => {
     setTimeout(() => {
-      toggle();
-    }, 500);
+      onClose();
+    }, 600);
     clearTimeout(handleMouseLeave);
   };
 
@@ -209,6 +205,14 @@ const CartSlide = () => {
   const stripePromise = loadStripe(
     "pk_test_51O2q5XFCjM1k0EDke6T3tMGgH1PtZ18VretDYLncIwwkCBBO3k5apeH8ojAT7wi2KburwOaozi8VEAhMyXvrimoO00QysDU0Aw"
   );
+
+  useEffect(() => {
+    document.body.classList.add("overflow-hidden");
+
+    return () => {
+      document.body.classList.remove("overflow-hidden");
+    };
+  }, []);
 
   // todo Empty the BAG after checkout
   const handleClick = () => {
@@ -229,46 +233,50 @@ const CartSlide = () => {
     handlePayment();
   };
 
-  return (
-    <Container
-      className={`${menuOpen ? "isOpen" : ""}`}
-      onMouseLeave={handleMouseLeave}
-    >
-      <Header>
-        <Title>Your cart</Title>
-      </Header>
-      <DrawerBody>
-        <CartContainer>
-          <DrawerInner>
-            <ContainerItem>
-              {products?.map((item) => (
-                <CartSlideList key={new Date().getTime + Math.random()}>
-                  <CartSlideItem
-                    id={item.id}
-                    title={item.title}
-                    desc={item.desc}
-                    price={item.price}
-                    img={item.img}
-                    quantity={item.quantity}
-                    size={item.size}
-                  />
-                </CartSlideList>
-              ))}
-            </ContainerItem>
-          </DrawerInner>
+  return ReactDOM.createPortal(
+    <>
+      <ContainerBackground onClick={onClose} />
+      <Container
+        className={`${showCartSlide ? "isOpen" : ""}`}
+        onMouseLeave={handleMouseLeave}
+      >
+        <Header>
+          <Title>Your cart</Title>
+        </Header>
+        <DrawerBody>
+          <CartContainer>
+            <DrawerInner>
+              <ContainerItem>
+                {products?.map((item) => (
+                  <CartSlideList key={new Date().getTime + Math.random()}>
+                    <CartSlideItem
+                      id={item.id}
+                      title={item.title}
+                      desc={item.desc}
+                      price={item.price}
+                      img={item.img}
+                      quantity={item.quantity}
+                      size={item.size}
+                    />
+                  </CartSlideList>
+                ))}
+              </ContainerItem>
+            </DrawerInner>
 
-          <Total>
-            <TotalCost>
-              <Subtotal>subtotal</Subtotal>
-              <Cost> {totalPrice()} €</Cost>
-            </TotalCost>
-            <NavLink to="/cart">
-              <CheckoutButton>go to checkout</CheckoutButton>
-            </NavLink>
-          </Total>
-        </CartContainer>
-      </DrawerBody>
-    </Container>
+            <Total>
+              <TotalCost>
+                <Subtotal>subtotal</Subtotal>
+                <Cost> {totalPrice()} €</Cost>
+              </TotalCost>
+              <NavLink to="/cart">
+                <CheckoutButton>go to checkout</CheckoutButton>
+              </NavLink>
+            </Total>
+          </CartContainer>
+        </DrawerBody>
+      </Container>
+    </>,
+    document.querySelector(".modalContainer")
   );
 };
 
