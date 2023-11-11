@@ -3,6 +3,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
 import { storeUser } from "../helpers";
+import { AiFillCloseCircle } from "react-icons/ai";
 
 const Container = styled.div`
   display: flex;
@@ -21,6 +22,16 @@ const Title = styled.h3`
   font-size: 28px;
   font-weight: 600;
   padding-bottom: 20px;
+`;
+
+const ErrorMessage = styled.p`
+  background-color: #e9e9e9;
+  padding: 15px 0;
+  margin-bottom: 20px;
+  font-weight: 200;
+  font-family: "HelveticaNowText-Light";
+  display: flex;
+  align-items: center;
 `;
 
 const Form = styled.form`
@@ -86,10 +97,21 @@ const Error = styled.span`
   color: red;
 `;
 
+const style = {
+  fontSize: "1.5rem",
+  color: "red",
+  marginLeft: "20px",
+  marginRight: "10px",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+};
+
 const initialUser = { password: "", identifier: "" };
 
 const Login = () => {
   const [user, setUser] = useState(initialUser);
+  const [err, setErr] = useState(null);
 
   const navigate = useNavigate();
 
@@ -116,14 +138,22 @@ const Login = () => {
         }
       }
     } catch (err) {
-      console.log(err);
+      setErr(err.response.data.error.message);
     }
   };
 
+  console.log(err);
   return (
     <Container>
       <Wrapper>
         <Title>Sign in</Title>
+
+        {err && (
+          <ErrorMessage>
+            <AiFillCloseCircle style={style} />
+            {err}
+          </ErrorMessage>
+        )}
         <Form>
           <InputWrapper>
             <InputContainer>
@@ -150,7 +180,7 @@ const Login = () => {
             </InputContainer>
           </InputWrapper>
           <Button onClick={handleLogin}>Login</Button>
-          {/* {error && <Error>Something went wrong...</Error>} */}
+          {/* {err && <Error>Something went wrong...</Error>} */}
           <NavLink to="" style={linkStyle}>
             Forgotten your password?
           </NavLink>

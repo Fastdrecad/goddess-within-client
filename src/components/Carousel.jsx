@@ -3,7 +3,9 @@ import CarouselItems from "./CarouselItems";
 import { sliderItems } from "../data";
 import { NavLink } from "react-router-dom";
 
-const Container = styled.section``;
+const Container = styled.section`
+  background-color: #999d9e;
+`;
 
 const Slide = styled.div`
   width: 100%;

@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { AiFillCloseCircle } from "react-icons/ai";
 
 const Container = styled.section`
   display: flex;
@@ -15,7 +16,15 @@ const Wrapper = styled.div`
   background-color: white;
 `;
 
-const ErrorMessage = styled.p``;
+const ErrorMessage = styled.p`
+  background-color: #e9e9e9;
+  padding: 15px 0;
+  margin-bottom: 20px;
+  font-weight: 200;
+  font-family: "HelveticaNowText-Light";
+  display: flex;
+  align-items: center;
+`;
 
 const Title = styled.h1`
   font-size: 28px;
@@ -89,10 +98,21 @@ const Button = styled.button`
 const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
+const style = {
+  fontSize: "1.5rem",
+  color: "red",
+  marginLeft: "20px",
+  marginRight: "10px",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+};
+
 const initialUser = { email: "", password: "", username: "" };
 
 const Register = () => {
   const [user, setUser] = useState(initialUser);
+  const [err, setErr] = useState(null);
 
   const navigate = useNavigate();
 
@@ -109,9 +129,11 @@ const Register = () => {
         }
       }
     } catch (err) {
-      console.log(err);
+      setErr(err.response.data.error.message);
     }
   };
+
+  console.log(err);
 
   const handleUserChange = ({ target }) => {
     const { name, value } = target;
@@ -126,6 +148,16 @@ const Register = () => {
     <Container>
       <Wrapper>
         <Title>Create an account</Title>
+
+        {err && (
+          <ErrorMessage>
+            <ErrorMessage>
+              <AiFillCloseCircle style={style} />
+              {err}
+            </ErrorMessage>
+          </ErrorMessage>
+        )}
+
         <Form>
           <InputWrapper>
             <InputContainer>

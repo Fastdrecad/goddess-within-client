@@ -4,9 +4,10 @@ import styled from "styled-components";
 
 const Container = styled.div`
   display: flex;
+  margin-inline: auto;
   background-color: #1a1a1a;
   color: white;
-  padding: 100px 200px;
+  padding: 50px 200px;
 `;
 const Left = styled.div`
   flex: 1;

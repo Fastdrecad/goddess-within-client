@@ -277,15 +277,33 @@ const Cart = () => {
             <SummaryTitle>Order summary</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>{totalPrice()} €</SummaryItemPrice>
+              <SummaryItemPrice>
+                {new Intl.NumberFormat("de-DE", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                }).format(totalPrice())}{" "}
+                €
+              </SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Estimated Shipping</SummaryItemText>
-              <SummaryItemPrice>€ 5.99 €</SummaryItemPrice>
+              <SummaryItemPrice>
+                {new Intl.NumberFormat("de-DE", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                }).format(5.99)}{" "}
+                €
+              </SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Shipping Discount</SummaryItemText>
-              <SummaryItemPrice>-5.99 €</SummaryItemPrice>
+              <SummaryItemPrice>
+                {new Intl.NumberFormat("de-DE", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                }).format(-5.99)}{" "}
+                €
+              </SummaryItemPrice>
             </SummaryItem>
             <Hr />
             <SummaryItem $type="total">
@@ -293,7 +311,13 @@ const Cart = () => {
                 <b>Total (VAT included)</b>
               </SummaryItemText>
               <SummaryItemPrice>
-                <b>{totalPrice()} €</b>
+                <b>
+                  {new Intl.NumberFormat("de-DE", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  }).format(totalPrice())}{" "}
+                  €
+                </b>
               </SummaryItemPrice>
             </SummaryItem>
             <Button onClick={handleClick}>Checkout now</Button>
