@@ -91,6 +91,8 @@ const Products = () => {
     `/sub-categories?[filters][categories][id][$eq]=${catId}`
   );
 
+  console.log(data);
+
   const handleChangePrice = (option) => {
     setValue(option);
   };

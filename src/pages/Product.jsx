@@ -7,6 +7,7 @@ import useFetch from "../hooks/useFetch";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux/cartReducer";
 import Dropdown from "../components/Dropdown";
+import { AiFillCloseCircle } from "react-icons/ai";
 
 const Container = styled.div`
   font-family: "HelveticaNowText-Regular";
@@ -155,6 +156,16 @@ const FilterSizeOption = styled.option`
   width: 100%;
 `;
 
+const ErrorMessage = styled.p`
+  background-color: #e9e9e9;
+  padding: 15px 0;
+  margin-top: 20px;
+  font-weight: 200;
+  font-family: "HelveticaNowText-Light";
+  display: flex;
+  align-items: center;
+`;
+
 const AddContainer = styled.div`
   display: flex;
   align-items: flex-start;
@@ -202,7 +213,7 @@ const Button = styled.button`
     color: black;
   }
   &:active {
-    background-color: #5d9330;
+    background-color: #000000;
     color: white;
   }
 `;
@@ -230,14 +241,23 @@ const ButtonHeart = styled.button`
   }
 `;
 
+const style = {
+  fontSize: "1.5rem",
+  color: "red",
+  marginLeft: "20px",
+  marginRight: "10px",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+};
+
 const title = { size: "Choose your size" };
 
 const Product = () => {
   const [size, setSize] = useState(null);
+  const [err, setErr] = useState(null);
   const id = useParams().id;
-  // console.log(id);
   const [selectedImg, setSelectedImg] = useState("img");
-  // console.log(selectedImg);
   const [isActive, setActive] = useState("img");
   let quantity = 1;
   let isLiked = false;
@@ -249,8 +269,6 @@ const Product = () => {
   };
 
   const { data, loading, error } = useFetch(`/products/${id}?populate=*`);
-
-  console.log(data);
 
   const sizes = data?.attributes?.sizes?.data.map((item) => {
     let label;
@@ -322,12 +340,11 @@ const Product = () => {
           </ImageContainer>
           <InfoContainer>
             <BrandName>{data?.attributes?.title}</BrandName>
-            <Title>{data?.attributes?.desc}</Title>
+            <Title>{data?.attributes?.description}</Title>
             <Desc>
               Outer fabric material: 100% acetate <br />
               Fabric: Satin <br /> Care instructions: Dry clean only
             </Desc>
-            {/* <Price>{data?.attributes?.price} €</Price> */}
             {data?.attributes?.discount ? (
               <Price style={{ color: "red" }}>
                 {new Intl.NumberFormat("de-DE", {
@@ -365,6 +382,13 @@ const Product = () => {
               </Originally>
             )}
 
+            {err && (
+              <ErrorMessage>
+                <AiFillCloseCircle style={style} />
+                {err}
+              </ErrorMessage>
+            )}
+
             <FilterContainer>
               <Filter>
                 <Dropdown
@@ -379,23 +403,29 @@ const Product = () => {
             <AddContainer>
               <BagContainer>
                 <Button
-                  onClick={() =>
-                    dispatch(
-                      addToCart({
-                        id: data.id,
-                        title: data.attributes.title,
-                        desc: data.attributes.desc,
-                        price: data.attributes.price,
-                        img: data.attributes.img.data.attributes?.formats
-                          ?.thumbnail?.url,
-                        quantity,
-                        size: size.value,
-                      })
-                    )
-                  }
+                  onClick={() => {
+                    if (size === null) {
+                      setErr("Please choose your size");
+                    } else {
+                      dispatch(
+                        addToCart({
+                          id: data.id,
+                          title: data.attributes.title,
+                          desc: data.attributes.description,
+                          price: data.attributes.price,
+                          img: data.attributes.img.data.attributes?.formats
+                            ?.thumbnail?.url,
+                          quantity,
+                          size: size.value,
+                        })
+                      );
+                      setErr(null);
+                    }
+                  }}
                 >
                   add to bag
                 </Button>
+
                 <ButtonHeart
                 // onClick={() =>
                 //   dispatch(liked({ id: data.id, isLiked: false }))

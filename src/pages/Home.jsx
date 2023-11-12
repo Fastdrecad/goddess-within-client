@@ -6,10 +6,10 @@ import Carousel from "../components/Carousel";
 const Home = () => {
   return (
     <div>
-      <Carousel />
+      {/* <Carousel />
       <FeaturedProducts type="featured" />
       <Categories />
-      <FeaturedProducts type="trending" />
+      <FeaturedProducts type="trending" /> */}
     </div>
   );
 };

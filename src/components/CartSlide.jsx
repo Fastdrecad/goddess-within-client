@@ -4,10 +4,6 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import CartSlideItem from "./CartSlideItem";
-import { loadStripe } from "@stripe/stripe-js";
-import { makeRequest } from "../requestMethods";
-import { useContext } from "react";
-import { MenuContext } from "../context/navContext";
 
 const ContainerBackground = styled.div`
   position: fixed;
@@ -81,7 +77,6 @@ const CartContainer = styled.div`
 `;
 
 const DrawerInner = styled.div`
-  /* display: flex; */
   justify-content: flex-start;
   flex-direction: column;
   position: relative;
@@ -163,14 +158,16 @@ const TotalCost = styled.div`
   align-items: center;
   width: 100%;
 `;
+
 const Subtotal = styled.span`
   font-weight: bold;
   text-transform: uppercase;
-  /* padding: 20px 0; */
 `;
+
 const Cost = styled.span`
   font-weight: bold;
 `;
+
 const CheckoutButton = styled.button`
   width: 100%;
   border: none;
@@ -195,16 +192,13 @@ const CartSlide = ({ onClose, showCartSlide }) => {
   };
 
   const products = useSelector((state) => state.cart.products);
+  console.log(products);
 
   const totalPrice = () => {
     let total = 0;
     products.forEach((item) => (total += item.quantity * item.price));
     return total.toFixed(2);
   };
-
-  const stripePromise = loadStripe(
-    "pk_test_51O2q5XFCjM1k0EDke6T3tMGgH1PtZ18VretDYLncIwwkCBBO3k5apeH8ojAT7wi2KburwOaozi8VEAhMyXvrimoO00QysDU0Aw"
-  );
 
   useEffect(() => {
     document.body.classList.add("overflow-hidden");
@@ -213,25 +207,6 @@ const CartSlide = ({ onClose, showCartSlide }) => {
       document.body.classList.remove("overflow-hidden");
     };
   }, []);
-
-  // todo Empty the BAG after checkout
-  const handleClick = () => {
-    const handlePayment = async () => {
-      try {
-        const stripe = await stripePromise;
-        const res = await makeRequest.post("/orders", {
-          products,
-        });
-
-        await stripe.redirectToCheckout({
-          sessionId: res.data.stripeSession.id,
-        });
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    handlePayment();
-  };
 
   return ReactDOM.createPortal(
     <>

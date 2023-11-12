@@ -172,7 +172,7 @@ const Card = ({ item, type, id }) => {
           <Title $clr={`${type === "featured" ? "#ffffff" : "#000000"}`}>
             {item?.attributes.title}
             <br />
-            {item?.attributes.desc}
+            {item?.attributes.description}
           </Title>
           {item?.attributes.discount ? (
             <Price style={{ color: "red" }}>
