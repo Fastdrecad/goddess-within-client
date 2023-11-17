@@ -105,7 +105,7 @@ const Like = styled.span`
   background-color: white;
   padding: 12px 8px;
   cursor: pointer;
-  z-index: 30;
+  z-index: 11;
   transition: all 0.2s linear;
 
   &:hover {

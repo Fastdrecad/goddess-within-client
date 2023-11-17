@@ -6,12 +6,11 @@ import { phone } from "../responsive";
 const Container = styled.div`
   width: 100%;
   height: 32px;
-  background-color: #db1313;
+  background-color: #8a10a5;
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: sticky;
   top: 0;
   z-index: 100;
 

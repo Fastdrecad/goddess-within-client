@@ -11,6 +11,7 @@ const Slide = styled.div`
   width: 100%;
   height: 90vh;
   display: flex;
+  position: relative;
   align-items: center;
   background-color: ${(props) => props.$bg};
 `;
@@ -19,7 +20,6 @@ const ImgContainer = styled.div`
   position: relative;
   height: 100%;
   width: 100%;
-  flex: 1;
 `;
 
 const Image = styled.img`
@@ -30,8 +30,13 @@ const Image = styled.img`
 `;
 
 const InfoContainer = styled.div`
-  flex: 1;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  bottom: 10%;
+  left: 40%;
   padding: 50px 70px;
+  margin-right: 80px;
+  color: white;
 `;
 
 const Title = styled.h1`
@@ -52,6 +57,7 @@ const Button = styled.button`
   cursor: pointer;
   outline: none;
   border: 1px solid black;
+  text-transform: uppercase;
 `;
 
 const Carousel = () => {
@@ -66,8 +72,8 @@ const Carousel = () => {
             <InfoContainer>
               <Title>{item.title}</Title>
               <Desc>{item.desc}</Desc>
-              <NavLink to="/products/5">
-                <Button>SAVE NOW</Button>
+              <NavLink to={`/products/${item.id}`}>
+                <Button>{item.btn}</Button>
               </NavLink>
             </InfoContainer>
           </Slide>

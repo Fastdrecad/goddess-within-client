@@ -16,10 +16,9 @@ import useFetch from "../hooks/useFetch";
 
 const Container = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  position: sticky;
   z-index: 100;
   background-color: white;
-
+  top: 32px;
   ${phone({ height: "50px" })}
 `;
 
@@ -74,7 +73,7 @@ const MenuItemPerson = styled.span`
   border-bottom: none;
 
   &.active {
-    padding: 10px 5px 25px;
+    padding: 10px 5px 17px;
     border: 2px solid black;
     border-bottom: none;
   }
@@ -114,7 +113,21 @@ const ProfileContainer = styled.div`
   z-index: 15;
 `;
 
+const ListContainer = styled.div`
+  width: 100%;
+  width: 335px;
+  inset: 0px 0px auto auto;
+  position: absolute;
+  transform: translate(1px, 41px);
+  transition: all 2s ease;
+  border: 2px solid black;
+  box-sizing: border-box;
+  background-color: white;
+  overflow: hidden;
+  z-index: 100;
+`;
 const SearchContainer = styled.div`
+  position: relative;
   border: 1px solid black;
   display: flex;
   align-items: center;
@@ -125,12 +138,28 @@ const SearchContainer = styled.div`
 `;
 
 const InputList = styled.ul`
+  display: flex;
+  align-items: center;
   list-style: none;
-  text-transform: lowercase;
-  white-space: nowrap;
+  justify-content: space-evenly;
+  flex-direction: column;
+  height: 100%;
 `;
 
-const InputListItem = styled.li``;
+const InputListItem = styled.li`
+  list-style: none;
+  border-bottom: 1px solid lightgray;
+  display: block;
+  width: 95%;
+  text-align: center;
+  padding: 16px 0;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #eaeaea;
+    width: 100%;
+  }
+`;
 
 const Input = styled.input`
   border: none;
@@ -143,11 +172,9 @@ const Navbar = () => {
   const [active, setActive] = useState(false);
   const [showCartSlide, setShowCartSlide] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredItems, setFilteredItems] = useState([]);
+  const [filteredItems, setFilteredItems] = useState(null);
 
   const [isHovering, setIsHovering] = useState(false);
-
-  console.log(data);
 
   const products = useSelector((state) => state.cart.products);
 
@@ -180,9 +207,10 @@ const Navbar = () => {
     if (searchTerm) {
       setFilteredItems(filteredItems);
     } else {
-      setFilteredItems([]);
+      setFilteredItems(null);
     }
   };
+  console.log(searchTerm);
   console.log(filteredItems);
 
   return (
@@ -220,7 +248,6 @@ const Navbar = () => {
             <PiGlobeLight style={{ fontSize: "30px" }} />
           </LanguageContainer>
           <SearchContainer>
-            {/* TODO: searchTerm */}
             <Input
               placeholder="Search"
               type="text"
@@ -230,18 +257,33 @@ const Navbar = () => {
             <Search
               style={{ color: "#333", fontSize: "30px", userSelect: "none" }}
             />
-            <InputList>
-              {filteredItems?.slice(0, 10).map((item) => (
-                <NavLink
-                  to={`/product/${item.id}`}
-                  onClick={() => setFilteredItems([])}
-                >
-                  <InputListItem key={item.id}>
-                    {item.attributes.description}
-                  </InputListItem>
-                </NavLink>
-              ))}
-            </InputList>
+            {searchTerm && (
+              <ListContainer>
+                <InputList>
+                  {filteredItems?.slice(0, 10).map((item) => (
+                    <NavLink
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        textAlign: "center",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                      to={`/product/${item.id}`}
+                      onClick={() => {
+                        setFilteredItems([]);
+                        setSearchTerm("");
+                      }}
+                    >
+                      <InputListItem key={item.id}>
+                        {item.attributes.description}
+                      </InputListItem>
+                    </NavLink>
+                  ))}
+                </InputList>
+              </ListContainer>
+            )}
           </SearchContainer>
           <ProfileContainer
             onMouseEnter={handleMouseEnter}
@@ -278,7 +320,7 @@ const Navbar = () => {
       <CSSTransition
         in={showCartSlide}
         timeout={600}
-        classNames="modal"
+        classNames="transition"
         unmountOnExit
       >
         <CartSlide onClose={handleClose} showCartSlide={showCartSlide} />

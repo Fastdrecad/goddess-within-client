@@ -18,7 +18,6 @@ import Home from "./pages/Home";
 import Product from "./pages/Product";
 import Products from "./pages/Products";
 import Register from "./components/Register";
-import CartSlide from "./components/CartSlide";
 import Login from "./components/Login";
 // import { Protector } from "./helpers";
 import Logout from "./components/Logout";

@@ -6,7 +6,7 @@ const Container = styled.div`
   width: 335px;
   inset: 0px 0px auto auto;
   position: absolute;
-  transform: translate(-220px, 62px);
+  transform: translate(-220px, 86px);
   transition: all 2s ease;
   border: 2px solid black;
   box-sizing: border-box;
@@ -54,7 +54,6 @@ const ListItem = styled.li`
   display: flex;
   align-items: center;
   justify-content: center;
-  display: flex;
   padding: 16px;
 
   &:hover:not(:first-child) {

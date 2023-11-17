@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -183,7 +183,7 @@ const CheckoutButton = styled.button`
   }
 `;
 
-const CartSlide = ({ onClose, showCartSlide }) => {
+const CartSlide = ({ ref, onClose, showCartSlide }) => {
   const handleMouseLeave = () => {
     setTimeout(() => {
       onClose();
@@ -192,7 +192,6 @@ const CartSlide = ({ onClose, showCartSlide }) => {
   };
 
   const products = useSelector((state) => state.cart.products);
-  console.log(products);
 
   const totalPrice = () => {
     let total = 0;

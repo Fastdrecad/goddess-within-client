@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const Container = styled.div`
   margin-top: 75px;
   height: 50vh;
-  background-color: #ff8400;
+  background-color: #0fe7b8;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,14 +40,14 @@ const Button = styled.button`
   box-sizing: border-box;
   border: none;
   flex: 1;
-  background-color: #cc4b05;
+  background-color: #0ba584;
   color: white;
   outline: none;
   cursor: pointer;
   transition: all 300ms ease;
 
   &:hover {
-    background-color: #ac3f04;
+    background-color: #0ba584;
   }
 
   &:active {
