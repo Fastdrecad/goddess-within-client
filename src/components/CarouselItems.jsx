@@ -212,7 +212,6 @@ const CarouselItems = ({ children }) => {
   return (
     <Container>
       {/* ------------------------------------------- */}
-      {/* <Title>Hello World</Title> */}
       <Button className="btnLeft" onClick={() => actionHandler("prev")}>
         <ArrowBack />
       </Button>
