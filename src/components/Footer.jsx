@@ -1,7 +1,7 @@
 import { Email, Facebook, Instagram, Phone, Room } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { laptop, phone, tabletLand, tabletPort } from "../responsive";
+import { laptop, phone, tabletLand } from "../responsive";
 
 const Container = styled.div`
   display: flex;
@@ -180,7 +180,7 @@ const Footer = () => {
           contact@goddess.within
         </ContactItem>
         <PaymentItem>
-          <Payment src="/src/assets/payments/payment.png" />
+          <Payment src="/assets/payments/payment.png" />
         </PaymentItem>
       </Right>
     </Container>

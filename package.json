@@ -6,6 +6,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "build-all-front": "vite build --config config/theme1/vite.config.js && vite build --config config/theme2/vite.config.js",
+    "watch": "vite build --watch",
     "preview": "vite preview"
   },
   "dependencies": {

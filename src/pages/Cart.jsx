@@ -1,8 +1,6 @@
 import styled from "styled-components";
-import { Add, Remove } from "@material-ui/icons";
-import { BsHeartFill, BsTrash } from "react-icons/bs";
 import FeaturedProducts from "../components/FeaturedProducts";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import CartItem from "../components/CartItem";
 import { loadStripe } from "@stripe/stripe-js";
 import { makeRequest } from "../requestMethods";
@@ -11,7 +9,7 @@ import { phone, tabletPort } from "../responsive";
 const Container = styled.section``;
 
 const Wrapper = styled.div`
-  max-width: 1200px; // responsive unit
+  max-width: 1200px;
   display: flex;
   margin: 0 auto;
   background-color: #f3f3f3;

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import CarouselItems from "./CarouselItems";
 import { sliderItems } from "../data";
 import { NavLink } from "react-router-dom";
-import { laptop, phone, tabletLand, tabletPort } from "../responsive";
+import { laptop, phone } from "../responsive";
 
 const Container = styled.section`
   background-color: #999d9e;

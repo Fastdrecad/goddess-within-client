@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import FeaturedProducts from "../components/FeaturedProducts";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { BsHeart } from "react-icons/bs";
@@ -17,7 +16,7 @@ const Wrapper = styled.div`
   padding: 50px;
   display: flex;
   margin-inline: auto;
-  max-width: 1300px; // TODO responsive
+  max-width: 1300px;
 
   ${tabletPort({ padding: " 0px", flexDirection: "column" })}
 `;
