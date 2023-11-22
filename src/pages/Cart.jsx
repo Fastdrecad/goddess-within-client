@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CartItem from "../components/CartItem";
 import { loadStripe } from "@stripe/stripe-js";
 import { makeRequest } from "../requestMethods";
+import { phone, tabletPort } from "../responsive";
 
 const Container = styled.section``;
 
@@ -13,9 +14,10 @@ const Wrapper = styled.div`
   max-width: 1200px; // responsive unit
   display: flex;
   margin: 0 auto;
-  /* height: fit-content; */
   background-color: #f3f3f3;
   padding: 20px;
+
+  ${tabletPort({ flexDirection: "column", padding: "0px" })}
 `;
 
 const Left = styled.div`
@@ -23,6 +25,8 @@ const Left = styled.div`
   background-color: white;
   margin-right: 20px;
   flex: 2;
+
+  ${tabletPort({ padding: "20px", marginRight: "0px" })}
 `;
 
 const Title = styled.h1`
@@ -33,6 +37,8 @@ const Title = styled.h1`
 const TopTexts = styled.div`
   padding: 25px 20px 0 0;
   font-size: 14px;
+
+  ${phone({ paddingBottom: "10px" })}
 `;
 
 const Right = styled.div`

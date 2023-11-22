@@ -1,13 +1,18 @@
 import styled from "styled-components";
 import Card from "./Card";
 import useFetch from "../hooks/useFetch";
+import { phone, tabletPort } from "../responsive";
 
 const Container = styled.div`
   gap: 15px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: "center";
   margin-top: 100px;
+
+  ${tabletPort({ marginTop: " 0px" })};
+  ${phone({ marginTop: "20px" })};
 `;
 
 const List = ({ catId, maxPrice, sort, subCats, size }) => {

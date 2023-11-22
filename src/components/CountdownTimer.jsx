@@ -1,10 +1,21 @@
 import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
+import { phone } from "../responsive";
 
 const Container = styled.div`
   margin-left: 10px;
 `;
 const Time = styled.span`
+  font-weight: 900;
+  width: 28px;
+  text-align: center;
+  margin: 5px;
+  font-size: 14px;
+
+  ${phone({ fontSize: "14px" })}
+`;
+
+const TimeText = styled.span`
   display: inline-block;
   font-size: 14px;
   font-weight: 500;
@@ -56,23 +67,15 @@ const CountdownTimer = () => {
 
   return (
     <Container>
-      <Time style={{ fontWeight: "900", width: "28px", textAlign: "center" }}>
-        {timerDays}
-      </Time>
-      {num <= 1 ? <Time> day,</Time> : <Time> days,</Time>}
-      <Time style={{ fontWeight: "900", width: "28px", textAlign: "center" }}>
-        {timerHours}
-      </Time>
-      {num <= 1 ? <Time> hr, </Time> : <Time> hrs,</Time>}
-      <Time style={{ fontWeight: "900", width: "28px", textAlign: "center" }}>
-        {timerMinutes}
-      </Time>
-      <Time> min, </Time>
-      <Time style={{ fontWeight: "900", width: "28px", textAlign: "center" }}>
-        {timerSeconds}
-      </Time>
+      <Time>{timerDays}</Time>
+      {num <= 1 ? <TimeText> day,</TimeText> : <TimeText> days,</TimeText>}
+      <Time>{timerHours}</Time>
+      {num <= 1 ? <TimeText> hr, </TimeText> : <TimeText> hrs,</TimeText>}
+      <Time>{timerMinutes}</Time>
+      <TimeText> min, </TimeText>
+      <Time>{timerSeconds}</Time>
 
-      <Time> sec</Time>
+      <TimeText> sec</TimeText>
     </Container>
   );
 };

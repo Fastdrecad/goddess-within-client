@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import emailjs from "@emailjs/browser";
 import { useNavigate } from "react-router-dom";
+import { phone } from "../responsive";
 
 const Container = styled.div`
   margin-top: 75px;
@@ -16,18 +17,25 @@ const Container = styled.div`
 const Title = styled.h1`
   font-size: 45px;
   margin-bottom: 20px;
+
+  ${phone({ fontSize: "22px" })}
 `;
 const Description = styled.div`
   font-size: 20px;
   font-weight: 300;
   margin-bottom: 20px;
+
+  ${phone({ fontSize: "16px", textAlign: "center" })}
 `;
+
 const FormContainer = styled.form`
   width: 35%;
   height: 50px;
   background-color: white;
   display: flex;
   justify-content: space-between;
+
+  ${phone({ width: "90%" })}
 `;
 const Input = styled.input`
   border: none;
@@ -35,6 +43,8 @@ const Input = styled.input`
   font-size: 18px;
   flex: 8;
   outline: none;
+
+  ${phone({ paddingLeft: "10px" })}
 `;
 const Button = styled.button`
   box-sizing: border-box;
@@ -45,6 +55,8 @@ const Button = styled.button`
   outline: none;
   cursor: pointer;
   transition: all 300ms ease;
+
+  ${phone({ flex: 2 })}
 
   &:hover {
     background-color: #0ba584;

@@ -5,12 +5,12 @@ import Carousel from "../components/Carousel";
 
 const Home = () => {
   return (
-    <div>
+    <>
       <Carousel />
       <FeaturedProducts type="featured" />
       <Categories />
       <FeaturedProducts type="trending" />
-    </div>
+    </>
   );
 };
 

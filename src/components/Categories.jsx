@@ -3,10 +3,13 @@ import { categories } from "../data";
 import CategoryItem from "./CategoryItem";
 import { useState } from "react";
 import LoadingButton from "./LoadingButton";
+import { phone, tabletLand } from "../responsive";
 
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
+
+  ${tabletLand({ flexDirection: "column" })};
 `;
 
 const Categories = () => {

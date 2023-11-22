@@ -11,24 +11,33 @@ import CartSlide from "./CartSlide";
 import ProfileTab from "./ProfileTab";
 import { useSelector } from "react-redux";
 import { CSSTransition } from "react-transition-group";
-import { phone } from "../responsive";
 import useFetch from "../hooks/useFetch";
+import { laptop, phone, tabletLand, tabletPort } from "../responsive";
 
 const Container = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   z-index: 100;
   background-color: white;
-  top: 32px;
-  ${phone({ height: "50px" })}
+`;
+
+const OuterWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  max-width: 1366px;
+  margin: auto;
+  padding: 0 15px;
+
+  ${phone({ padding: " 0px 10px" })}
 `;
 
 const Wrapper = styled.div`
-  padding: 0 80px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  ${phone({ padding: " 0 10px" })}
+  ${phone({ padding: " 0px 10px" })}
 `;
 
 const NavbarLink = styled(NavLink)`
@@ -47,6 +56,8 @@ const Left = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
+
+  ${phone({ margin: " 10px 15px" })}
 `;
 
 const LanguageContainer = styled.div`
@@ -54,17 +65,28 @@ const LanguageContainer = styled.div`
   align-items: center;
   margin-inline: 10px;
   cursor: pointer;
+
+  ${phone({ display: " none" })}
 `;
 
 const MenuItem = styled.span`
   font-size: 15px;
   margin-inline: 18px;
   cursor: pointer;
+
+  ${phone({ marginInline: "6px" })}
+`;
+
+const ProfileContainer = styled.div`
+  z-index: 15;
+  width: 59px;
+  display: flex;
+  position: relative;
 `;
 
 const MenuItemPerson = styled.span`
   font-size: 15px;
-  margin-inline: 18px;
+  margin: auto;
   cursor: pointer;
   padding-bottom: 10px;
   background-color: #ffffff;
@@ -72,16 +94,24 @@ const MenuItemPerson = styled.span`
   padding: 10px 5px;
   border-bottom: none;
 
+  ${tabletPort({ marginInline: "6px" })}
+
   &.active {
     padding: 10px 5px 17px;
     border: 2px solid black;
     border-bottom: none;
+
+    ${tabletPort({ border: "none" })}
   }
+
+  ${tabletPort({ border: "none" })}
 `;
 
 const Center = styled.div`
-  flex: 1;
+  flex: 2;
   text-align: center;
+
+  ${tabletLand({ display: "none" })}
 `;
 
 const Logo = styled.h1`
@@ -92,7 +122,7 @@ const Logo = styled.h1`
   display: inline;
   white-space: nowrap;
 
-  /* ${phone({ display: "none" })} */
+  ${phone({ fontSize: "28px" })}
 `;
 
 const Right = styled.div`
@@ -109,12 +139,7 @@ const Language = styled.span`
   ${phone({ display: "none" })}
 `;
 
-const ProfileContainer = styled.div`
-  z-index: 15;
-`;
-
 const ListContainer = styled.div`
-  width: 100%;
   width: 335px;
   inset: 0px 0px auto auto;
   position: absolute;
@@ -125,7 +150,10 @@ const ListContainer = styled.div`
   background-color: white;
   overflow: hidden;
   z-index: 100;
+
+  ${phone({ width: "300px", left: "50%", transform: "translate(-50%, 41px)" })}
 `;
+
 const SearchContainer = styled.div`
   position: relative;
   border: 1px solid black;
@@ -134,7 +162,7 @@ const SearchContainer = styled.div`
   margin-inline: 18px;
   padding: 5px;
 
-  ${phone({ display: "none" })}
+  ${phone({ margin: "auto" })}
 `;
 
 const InputList = styled.ul`
@@ -210,113 +238,114 @@ const Navbar = () => {
       setFilteredItems(null);
     }
   };
-  console.log(searchTerm);
-  console.log(filteredItems);
 
   return (
     <Container>
-      <Wrapper>
-        <Left>
-          <NavLink to="/" style={{ textDecoration: "none", color: "black" }}>
-            <Logo>Goddess Within</Logo>
-          </NavLink>
-        </Left>
-        <Center>
-          {" "}
-          <MenuItem>
-            <NavbarLink
-              to="/products/1"
-              onClick={() => setActive(!active)}
-              className={`${active} ? "active" : "`}
-            >
-              Ready to wear
-            </NavbarLink>
-          </MenuItem>
-          <MenuItem>
-            <NavbarLink to="/products/2">New Arrivals</NavbarLink>
-          </MenuItem>
-          <MenuItem>
-            <NavbarLink to="/products/3">Beauty</NavbarLink>
-          </MenuItem>
-          <MenuItem>
-            <NavbarLink to="/products/4">Sale %</NavbarLink>
-          </MenuItem>
-        </Center>
-        <Right>
-          <LanguageContainer>
-            <Language>EN</Language>
-            <PiGlobeLight style={{ fontSize: "30px" }} />
-          </LanguageContainer>
-          <SearchContainer>
-            <Input
-              placeholder="Search"
-              type="text"
-              value={searchTerm}
-              onChange={handleInputChange}
-            />
-            <Search
-              style={{ color: "#333", fontSize: "30px", userSelect: "none" }}
-            />
-            {searchTerm && (
-              <ListContainer>
-                <InputList>
-                  {filteredItems?.slice(0, 10).map((item) => (
-                    <NavLink
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        textAlign: "center",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                      to={`/product/${item.id}`}
-                      onClick={() => {
-                        setFilteredItems([]);
-                        setSearchTerm("");
-                      }}
-                    >
-                      <InputListItem key={item.id}>
-                        {item.attributes.description}
-                      </InputListItem>
-                    </NavLink>
-                  ))}
-                </InputList>
-              </ListContainer>
-            )}
-          </SearchContainer>
-          <ProfileContainer
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          >
-            <MenuItemPerson className={`${isHovering ? "active" : ""}`}>
-              <Badge color="secondary" overlap="rectangular">
-                <GoPerson style={{ fontSize: "25px" }} />
-              </Badge>
-            </MenuItemPerson>
-            {isHovering && <ProfileTab />}
-          </ProfileContainer>
-          <MenuItem>
-            <Badge color="secondary" overlap="rectangular">
-              <BsHeart style={{ fontSize: "25px" }} />
-            </Badge>
-          </MenuItem>
-          <MenuItem onMouseEnter={handleMouseEnterBag}>
-            <Link to="/cart">
-              <Badge
-                badgeContent={products.length}
-                color="secondary"
-                overlap="rectangular"
+      <OuterWrapper>
+        <Wrapper>
+          <Left>
+            <NavLink to="/" style={{ textDecoration: "none", color: "black" }}>
+              <Logo>Goddess Within</Logo>
+            </NavLink>
+          </Left>
+          <Center>
+            {" "}
+            <MenuItem>
+              <NavbarLink
+                to="/products/1"
+                onClick={() => setActive(!active)}
+                className={`${active} ? "active" : "`}
               >
-                <HiOutlineShoppingBag
-                  style={{ fontSize: "25px" }}
-                  color="action"
-                />
+                Ready to wear
+              </NavbarLink>
+            </MenuItem>
+            <MenuItem>
+              <NavbarLink to="/products/2">New Arrivals</NavbarLink>
+            </MenuItem>
+            <MenuItem>
+              <NavbarLink to="/products/3">Beauty</NavbarLink>
+            </MenuItem>
+            <MenuItem>
+              <NavbarLink to="/products/4">Sale %</NavbarLink>
+            </MenuItem>
+          </Center>
+          <Right>
+            <LanguageContainer>
+              <Language>EN</Language>
+              <PiGlobeLight style={{ fontSize: "30px" }} />
+            </LanguageContainer>
+
+            <ProfileContainer
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              <MenuItemPerson className={`${isHovering ? "active" : ""}`}>
+                <Badge color="secondary" overlap="rectangular">
+                  <GoPerson style={{ fontSize: "25px" }} />
+                </Badge>
+              </MenuItemPerson>
+              {isHovering && <ProfileTab />}
+            </ProfileContainer>
+            <MenuItem>
+              <Badge color="secondary" overlap="rectangular">
+                <BsHeart style={{ fontSize: "25px" }} />
               </Badge>
-            </Link>
-          </MenuItem>
-        </Right>
-      </Wrapper>
+            </MenuItem>
+            <MenuItem onMouseEnter={handleMouseEnterBag}>
+              <Link to="/cart">
+                <Badge
+                  badgeContent={products.length}
+                  color="secondary"
+                  overlap="rectangular"
+                >
+                  <HiOutlineShoppingBag
+                    style={{ fontSize: "25px" }}
+                    color="action"
+                  />
+                </Badge>
+              </Link>
+            </MenuItem>
+          </Right>
+        </Wrapper>
+        <SearchContainer>
+          <Input
+            placeholder="Search..."
+            type="text"
+            value={searchTerm}
+            onChange={handleInputChange}
+          />
+          <Search
+            style={{ color: "#333", fontSize: "30px", userSelect: "none" }}
+          />
+          {searchTerm && (
+            <ListContainer>
+              <InputList>
+                {filteredItems?.slice(0, 10).map((item) => (
+                  <NavLink
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      textAlign: "center",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                    to={`/product/${item.id}`}
+                    onClick={() => {
+                      setFilteredItems([]);
+                      setSearchTerm("");
+                    }}
+                  >
+                    <InputListItem key={item.id}>
+                      {item.attributes.description}
+                    </InputListItem>
+                  </NavLink>
+                ))}
+              </InputList>
+            </ListContainer>
+          )}
+        </SearchContainer>
+      </OuterWrapper>
       <CSSTransition
         in={showCartSlide}
         timeout={600}

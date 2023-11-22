@@ -10,7 +10,7 @@ export const phone = (props) => {
 
 export const tabletPort = (props) => {
   return css`
-    @media only screen and (max-width: 640px) {
+    @media only screen and (max-width: 768px) {
       ${props}
     }
   `;
@@ -18,7 +18,7 @@ export const tabletPort = (props) => {
 
 export const tabletLand = (props) => {
   return css`
-    @media only screen and (max-width: 980px) {
+    @media only screen and (max-width: 1024px) {
       ${props}
     }
   `;

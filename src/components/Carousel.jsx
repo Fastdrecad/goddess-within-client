@@ -2,9 +2,12 @@ import styled from "styled-components";
 import CarouselItems from "./CarouselItems";
 import { sliderItems } from "../data";
 import { NavLink } from "react-router-dom";
+import { laptop, phone, tabletLand, tabletPort } from "../responsive";
 
 const Container = styled.section`
   background-color: #999d9e;
+
+  ${phone({ display: "none" })}
 `;
 
 const Slide = styled.div`
@@ -37,17 +40,25 @@ const InfoContainer = styled.div`
   padding: 50px 70px;
   margin-right: 80px;
   color: white;
+
+  ${laptop({ padding: "25px 35px", marginRight: "50px", bottom: "15%" })}
+  ${phone({})}
 `;
 
 const Title = styled.h1`
   font-size: 40px;
   font-weight: 700;
+
+  ${laptop({ fontSize: "30px" })}
+  ${phone({})}
 `;
 
 const Desc = styled.p`
   font-size: 30px;
   margin: 30px 0px;
   font-weight: 500;
+
+  ${laptop({ fontSize: "20px", margin: "15px 0" })}
 `;
 
 const Button = styled.button`
