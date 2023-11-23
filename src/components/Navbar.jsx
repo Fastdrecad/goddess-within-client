@@ -12,7 +12,7 @@ import ProfileTab from "./ProfileTab";
 import { useSelector } from "react-redux";
 import { CSSTransition } from "react-transition-group";
 import useFetch from "../hooks/useFetch";
-import { laptop, phone, tabletLand, tabletPort } from "../responsive";
+import { phone, tabletLand, tabletPort } from "../responsive";
 
 const Container = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
@@ -66,7 +66,7 @@ const LanguageContainer = styled.div`
   margin-inline: 10px;
   cursor: pointer;
 
-  ${phone({ display: " none" })}
+  ${tabletPort({ display: " none" })}
 `;
 
 const MenuItem = styled.span`
@@ -179,8 +179,10 @@ const InputListItem = styled.li`
   border-bottom: 1px solid lightgray;
   display: block;
   width: 95%;
-  text-align: center;
   padding: 16px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   &:hover {
     cursor: pointer;
@@ -325,7 +327,7 @@ const Navbar = () => {
                     style={{
                       width: "100%",
                       height: "100%",
-                      textAlign: "center",
+                      textAlign: "left",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",

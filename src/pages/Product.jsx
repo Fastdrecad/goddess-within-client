@@ -136,30 +136,6 @@ const Filter = styled.div`
   margin: 10px 0;
 `;
 
-const FilterTitle = styled.span`
-  font-size: 20px;
-  font-weight: 200;
-`;
-
-const FilterColor = styled.div`
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: ${(props) => props.$bgr};
-  margin: 0 5px;
-  cursor: pointer;
-`;
-
-const FilterSize = styled.select`
-  width: 100%;
-  text-transform: uppercase;
-  padding: 15px 30px;
-`;
-
-const FilterSizeOption = styled.option`
-  width: 100%;
-`;
-
 const ErrorMessage = styled.p`
   background-color: #e9e9e9;
   padding: 15px 0;
@@ -175,24 +151,6 @@ const AddContainer = styled.div`
   align-items: flex-start;
   flex-direction: column;
   justify-content: space-between;
-`;
-
-const AmountContainer = styled.div`
-  display: flex;
-  align-items: center;
-  font-weight: 700;
-  margin: 20px 0;
-`;
-
-const Amount = styled.span`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  border: 1px solid transparent;
-  margin: 0 5px;
-  font-size: 20px;
 `;
 
 const BagContainer = styled.div`

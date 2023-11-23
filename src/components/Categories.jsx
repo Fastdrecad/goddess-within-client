@@ -8,6 +8,7 @@ import { phone, tabletLand } from "../responsive";
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
+  text-transform: capitalize;
 
   ${tabletLand({ flexDirection: "column" })};
 `;

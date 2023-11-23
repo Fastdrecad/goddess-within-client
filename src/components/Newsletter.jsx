@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import emailjs from "@emailjs/browser";
 import { useNavigate } from "react-router-dom";
-import { phone } from "../responsive";
+import { phone, tabletPort } from "../responsive";
 
 const Container = styled.div`
   margin-top: 75px;
@@ -18,6 +18,7 @@ const Title = styled.h1`
   font-size: 45px;
   margin-bottom: 20px;
 
+  ${tabletPort({ fontSize: "26px" })}
   ${phone({ fontSize: "22px" })}
 `;
 const Description = styled.div`
@@ -25,7 +26,7 @@ const Description = styled.div`
   font-weight: 300;
   margin-bottom: 20px;
 
-  ${phone({ fontSize: "16px", textAlign: "center" })}
+  ${tabletPort({ fontSize: "16px", textAlign: "center" })}
 `;
 
 const FormContainer = styled.form`
@@ -35,7 +36,7 @@ const FormContainer = styled.form`
   display: flex;
   justify-content: space-between;
 
-  ${phone({ width: "90%" })}
+  ${tabletPort({ width: "90%" })}
 `;
 const Input = styled.input`
   border: none;
@@ -44,7 +45,8 @@ const Input = styled.input`
   flex: 8;
   outline: none;
 
-  ${phone({ paddingLeft: "10px" })}
+  ${tabletPort({ paddingLeft: "10px" })}
+  ${phone({ fontSize: "16px" })}
 `;
 const Button = styled.button`
   box-sizing: border-box;
@@ -55,8 +57,6 @@ const Button = styled.button`
   outline: none;
   cursor: pointer;
   transition: all 300ms ease;
-
-  ${phone({ flex: 2 })}
 
   &:hover {
     background-color: #0ba584;

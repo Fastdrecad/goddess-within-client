@@ -8,7 +8,7 @@ const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: "center";
+  justify-content: center;
   margin-top: 100px;
 
   ${tabletPort({ marginTop: " 0px" })};

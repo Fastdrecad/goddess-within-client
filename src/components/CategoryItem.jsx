@@ -44,7 +44,7 @@ const Info = styled.div`
 const Title = styled.h1`
   color: white;
   font-size: 24px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 `;
 
 const Button = styled.button`
@@ -55,6 +55,7 @@ const Button = styled.button`
   outline: none;
   border: none;
   transition: all 0.5s ease;
+  text-transform: uppercase;
 
   &:hover {
     transform: scale(1.1);

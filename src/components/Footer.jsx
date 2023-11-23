@@ -97,10 +97,11 @@ const List = styled.ul`
 const ListItem = styled.li`
   width: 50%;
   margin-bottom: 10px;
+  white-space: nowrap;
 
   ${laptop({ width: "50%" })}
 
-  ${tabletLand({ width: "30%" })}
+  ${tabletLand({ width: "50%" })}
 `;
 
 const Right = styled.div`

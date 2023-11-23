@@ -26,7 +26,6 @@ const ContainerLeft = styled.div`
 `;
 
 const ContainerRight = styled.div`
-  /* padding: 50px; */
   flex: 3;
 
   ${phone({ flex: "none" })};

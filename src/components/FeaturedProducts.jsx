@@ -4,19 +4,22 @@ import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import { useRef } from "react";
 import { useInView } from "react-intersection-observer";
 import useFetch from "../hooks/useFetch";
-import { phone } from "../responsive";
+import { phone, tabletPort } from "../responsive";
 
 const Container = styled.div`
   background-color: ${(props) => props.$bgr};
   margin: 100px 0;
 
   ${phone({ margin: " 50px 0px" })}
+  ${tabletPort({ margin: " 50px 0px" })}
 `;
 
 const Wrapper = styled.div`
   padding: 40px 0;
   overflow: hidden;
+
   ${phone({ padding: " 10px " })}
+  ${tabletPort({ padding: " 10px " })}
 `;
 
 const Top = styled.div`
@@ -26,7 +29,7 @@ const Top = styled.div`
   margin-bottom: 50px;
   color: ${(props) => props.$clr};
 
-  ${phone({
+  ${tabletPort({
     padding: " 10px 10px",
     alignItems: "flex-start",
     marginBottom: "20px",

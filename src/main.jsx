@@ -7,13 +7,13 @@ import { MenuContextProvider } from "./context/navContext";
 import { PersistGate } from "redux-persist/integration/react";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <MenuContextProvider>
-      <Provider store={store}>
-        <PersistGate loading={"loading"} persistor={persistor}>
-          <App />
-        </PersistGate>
-      </Provider>
-    </MenuContextProvider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <MenuContextProvider>
+    <Provider store={store}>
+      <PersistGate loading={"loading"} persistor={persistor}>
+        <App />
+      </PersistGate>
+    </Provider>
+  </MenuContextProvider>
+  // </React.StrictMode>
 );
