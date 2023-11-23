@@ -1,18 +1,21 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { userData } from "../helpers";
+import { tabletPort } from "../responsive";
 
 const Container = styled.div`
   width: 335px;
   inset: 0px 0px auto auto;
   position: absolute;
-  transform: translate(-220px, 86px);
+  transform: translate(-10px, 52px);
   transition: all 2s ease;
   border: 2px solid black;
   box-sizing: border-box;
   background-color: white;
   overflow: hidden;
   z-index: -1;
+
+  ${tabletPort({ display: "none" })};
 `;
 
 const UnorderedList = styled.ul`

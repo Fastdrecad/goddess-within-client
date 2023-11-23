@@ -4,15 +4,22 @@ import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import { useRef } from "react";
 import { useInView } from "react-intersection-observer";
 import useFetch from "../hooks/useFetch";
+import { phone, tabletPort } from "../responsive";
 
 const Container = styled.div`
   background-color: ${(props) => props.$bgr};
   margin: 100px 0;
+
+  ${phone({ margin: " 50px 0px" })}
+  ${tabletPort({ margin: " 50px 0px" })}
 `;
 
 const Wrapper = styled.div`
   padding: 40px 0;
   overflow: hidden;
+
+  ${phone({ padding: " 10px " })}
+  ${tabletPort({ padding: " 10px " })}
 `;
 
 const Top = styled.div`
@@ -21,14 +28,24 @@ const Top = styled.div`
   align-items: center;
   margin-bottom: 50px;
   color: ${(props) => props.$clr};
+
+  ${tabletPort({
+    padding: " 10px 10px",
+    alignItems: "flex-start",
+    marginBottom: "20px",
+  })}
 `;
+
 const Title = styled.h1`
   flex: 2;
   text-transform: capitalize;
   font-size: 22px;
+  padding-right: 10px;
 `;
+
 const Desc = styled.p`
   flex: 3;
+  ${phone({ fontSize: " 14px " })}
 `;
 const BottomContainer = styled.div`
   display: flex;
@@ -52,6 +69,8 @@ const ContainerList = styled.ul`
     display: none;
     position: relative;
   }
+
+  ${phone({ padding: " 0px 10px" })}
 `;
 
 const Row = styled.div`
@@ -60,14 +79,14 @@ const Row = styled.div`
 `;
 const ColLeft = styled.div`
   position: absolute;
-  left: 30rem;
+  left: 15vw;
   top: 39%;
 `;
 
 const ColRight = styled.div`
   top: 39%;
   position: absolute;
-  right: 30rem;
+  right: 15vw;
 `;
 
 const Button = styled.button`
@@ -79,7 +98,6 @@ const Button = styled.button`
 
 const CardList = styled.li`
   flex-basis: 25%;
-  /* max-width: 25%; */
   padding: 0px 10px;
 `;
 
@@ -96,8 +114,6 @@ const FeaturedProducts = ({ type }) => {
     `/products?populate=*&[filters][type][$eq]=${type}`
   );
 
-  // console.log(data);
-
   return (
     <Container $bgr={`${type === "featured" ? "#084D5E" : "#e5b9c7"}`}>
       <Wrapper>
@@ -107,10 +123,7 @@ const FeaturedProducts = ({ type }) => {
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio
             voluptates ad unde tenetur tempore placeat laudantium, rerum
             eligendi minus asperiores autem corrupti non explicabo reiciendis
-            culpa. Voluptas, quis neque? Id. Natus, quia quam culpa voluptas
-            error rem delectus magni aspernatur sed, magnam nobis officia
-            deleniti unde. Veniam omnis magnam, possimus in, a harum aliquid
-            tempore deserunt architecto incidunt facere consequatur!
+            culpa.
           </Desc>
         </Top>
         <BottomContainer>

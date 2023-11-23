@@ -62,6 +62,7 @@ const Button = styled.button`
   border: 1px solid black;
   cursor: pointer;
   z-index: 1;
+  border: none;
 
   &.btnLeft {
     left: 50px;
@@ -148,23 +149,19 @@ const CarouselItems = ({ children }) => {
   const slides = useMemo(() => {
     if (children.length > 1) {
       let items = Children.map(children, (child, i) => (
-        <ListItem key={i} className="slide">
-          {child}
-        </ListItem>
+        <ListItem key={i}>{child}</ListItem>
       ));
 
       return [
-        <ListItem key={children.length + 1} className="slide">
+        <ListItem key={children.length + 1}>
           {children[children.length - 1]}
         </ListItem>,
         ...items,
-        <ListItem key={children.length + 2} className="slide">
-          {children[0]}
-        </ListItem>,
+        <ListItem key={children.length + 2}>{children[0]}</ListItem>,
       ];
     }
 
-    return <ListItem className="slide">{children[0]}</ListItem>;
+    return <ListItem>{children[0]}</ListItem>;
   }, [children]);
 
   // The Keypress Event Handler

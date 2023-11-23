@@ -4,6 +4,7 @@ import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
 import { storeUser } from "../helpers";
 import { AiFillCloseCircle } from "react-icons/ai";
+import { tabletLand, tabletPort } from "../responsive";
 
 const Container = styled.div`
   display: flex;
@@ -13,8 +14,10 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   padding: 20px;
-  width: 33.33%;
+  width: 25em;
   background-color: white;
+
+  ${tabletLand({ width: "25em" })}
 `;
 
 const Title = styled.h3`
@@ -142,12 +145,10 @@ const Login = () => {
     }
   };
 
-  console.log(err);
   return (
     <Container>
       <Wrapper>
         <Title>Sign in</Title>
-
         {err && (
           <ErrorMessage>
             <AiFillCloseCircle style={style} />

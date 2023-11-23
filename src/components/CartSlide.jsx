@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import CartSlideItem from "./CartSlideItem";
+import { phone } from "../responsive";
 
 const ContainerBackground = styled.div`
   position: fixed;
@@ -37,7 +38,11 @@ const Container = styled.div`
   &.isOpen {
     transform: translateX(-400px);
     opacity: 1;
+
+    ${phone({ transform: "translateX(-100vw)" })}
   }
+
+  ${phone({ width: "100vw", right: "-100vw" })}
 `;
 
 const Header = styled.div`
@@ -53,15 +58,7 @@ const Title = styled.h1`
   font-size: 24px;
   text-transform: uppercase;
 `;
-const Button = styled.button`
-  background-color: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  font-size: 30px;
-  cursor: pointer;
-`;
+
 const DrawerBody = styled.div`
   position: absolute;
   margin-top: 30px;
@@ -71,6 +68,7 @@ const DrawerBody = styled.div`
   bottom: 0;
   padding: 20px 20px 0;
 `;
+
 const CartContainer = styled.div`
   width: 100%;
   height: 100%;
@@ -99,41 +97,6 @@ const ContainerItem = styled.ul`
 `;
 
 const CartSlideList = styled.li``;
-
-const Image = styled.img`
-  flex: 1;
-  display: block;
-  margin: 0 auto;
-  width: 80px;
-  height: 100px;
-  object-fit: cover;
-  object-position: top;
-`;
-const Details = styled.div`
-  flex: 3;
-`;
-const ProductTitle = styled.h1`
-  margin-bottom: 20px;
-`;
-const CounterLeft = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 30%;
-  margin: 20px 0;
-`;
-const Description = styled.p``;
-
-const Price = styled.span`
-  /* flex: 70%; */
-`;
-
-const CounterContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-const Amount = styled.h1``;
 
 const Total = styled.div`
   box-sizing: border-box;
@@ -183,7 +146,7 @@ const CheckoutButton = styled.button`
   }
 `;
 
-const CartSlide = ({ ref, onClose, showCartSlide }) => {
+const CartSlide = ({ onClose, showCartSlide }) => {
   const handleMouseLeave = () => {
     setTimeout(() => {
       onClose();
@@ -250,7 +213,9 @@ const CartSlide = ({ ref, onClose, showCartSlide }) => {
                 </Cost>
               </TotalCost>
               <NavLink to="/cart">
-                <CheckoutButton>go to checkout</CheckoutButton>
+                <CheckoutButton onClick={onClose}>
+                  go to checkout
+                </CheckoutButton>
               </NavLink>
             </Total>
           </CartContainer>

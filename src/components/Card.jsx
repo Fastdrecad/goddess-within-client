@@ -3,6 +3,7 @@ import { BsHeart, BsHeartFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useState } from "react";
+import { phone } from "../responsive";
 
 const Container = styled.div`
   display: flex;
@@ -11,13 +12,13 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  width: 280px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   color: #000000;
   margin-bottom: 30px;
 `;
+
 const SecondImage = styled.img`
   width: 100%;
   height: 100%;
@@ -26,8 +27,8 @@ const SecondImage = styled.img`
 `;
 
 const ImageContainer = styled.div`
-  width: 100%;
-  height: 400px;
+  width: 280px;
+  aspect-ratio: 0.7;
   overflow: hidden;
   position: relative;
 
@@ -36,6 +37,8 @@ const ImageContainer = styled.div`
       z-index: 2;
     }
   }
+
+  ${phone({ width: "150px" })}
 `;
 
 const MainImage = styled.img`
@@ -45,6 +48,7 @@ const MainImage = styled.img`
   position: absolute;
   z-index: 1;
 `;
+
 const Deal = styled.span`
   position: absolute;
   top: 35px;
@@ -69,39 +73,59 @@ const Season = styled.span`
   font-size: 13px;
 `;
 
-const Title = styled.h2`
+const TitleContainer = styled.div`
+  color: ${(props) => props.$clr};
+  width: 280px;
+
+  ${phone({ width: "150px" })}
+`;
+
+const Title = styled.span`
   font-size: 14px;
   font-weight: 400;
-  color: ${(props) => props.$clr};
+  display: block;
+
+  ${phone({
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  })}
 `;
 
 const Originally = styled.h3`
   color: ${(props) => props.$clr};
-  /* font-weight: 400; */
   display: flex;
   gap: 20px;
+
+  ${phone({ flexDirection: "column" })}
 `;
 
 const OriginalPrice = styled.span`
   text-decoration: line-through;
+
+  ${phone({ fontSize: " 14px " })}
 `;
 
 const Discount = styled.span`
   color: red;
   text-decoration: none;
   font-size: 15px;
+
+  ${phone({ fontSize: " 14px " })}
 `;
 
 const Price = styled.h3`
   color: ${(props) => props.$clr};
   display: flex;
   gap: 20px;
+
+  ${phone({ fontSize: " 14px " })}
 `;
 
 const Like = styled.span`
   position: absolute;
-  top: 2px;
-  left: 2px;
+  top: 0px;
+  left: 0px;
   background-color: white;
   padding: 12px 8px;
   cursor: pointer;
@@ -113,6 +137,8 @@ const Like = styled.span`
     color: white;
     fill: black;
   }
+
+  ${phone({ padding: " 7px 5px" })}
 `;
 
 const Card = ({ item, type, id }) => {
@@ -169,11 +195,13 @@ const Card = ({ item, type, id }) => {
               }
             />
           </ImageContainer>
-          <Title $clr={`${type === "featured" ? "#ffffff" : "#000000"}`}>
-            {item?.attributes.title}
-            <br />
-            {item?.attributes.description}
-          </Title>
+          <TitleContainer
+            $clr={`${type === "featured" ? "#ffffff" : "#000000"}`}
+          >
+            <Title>{item?.attributes.title}</Title>
+
+            <Title>{item?.attributes.description}</Title>
+          </TitleContainer>
           {item?.attributes.discount ? (
             <Price style={{ color: "red" }}>
               {new Intl.NumberFormat("de-DE", {

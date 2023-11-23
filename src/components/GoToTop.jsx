@@ -1,18 +1,14 @@
 import { ArrowUpward } from "@material-ui/icons";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { phone } from "../responsive";
 
 const Button = styled.button`
-  display: flex;
   position: fixed;
   bottom: 50px;
   right: 50px;
-  color: white;
   align-items: center;
   justify-content: center;
-  padding: 10px 5px 10px 15px;
-  text-transform: uppercase;
-  font-size: 12px;
   background-color: #000000;
   border: none;
   cursor: pointer;
@@ -25,6 +21,37 @@ const Button = styled.button`
     opacity: 1;
     visibility: visible;
   }
+
+  ${phone({ bottom: "22px", right: "22px" })}
+`;
+
+const ButtonContent = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 5px 15px;
+
+  ${phone({ padding: "5px 10px " })}
+`;
+
+const TextSpan = styled.span`
+  color: white;
+  text-transform: uppercase;
+  font-size: 12px;
+
+  ${phone({ display: "none" })}
+`;
+
+const IconSpan = styled.span`
+  color: white;
+  text-align: center;
+
+  :first-child {
+    font-size: 22px;
+  }
+
+  ${phone({})}
 `;
 
 const GoToTop = () => {
@@ -49,14 +76,12 @@ const GoToTop = () => {
   return (
     <>
       <Button onClick={goToTop} className={showTopBtn ? "show" : ""}>
-        Go To Top
-        <ArrowUpward
-          style={{
-            fontSize: "20px",
-            paddingLeft: "10px",
-            paddingRight: "7px",
-          }}
-        />
+        <ButtonContent>
+          <TextSpan>Go To Top</TextSpan>
+          <IconSpan>
+            <ArrowUpward />
+          </IconSpan>
+        </ButtonContent>
       </Button>
     </>
   );

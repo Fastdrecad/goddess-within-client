@@ -5,22 +5,30 @@ import { useParams } from "react-router-dom";
 import FeaturedProducts from "../components/FeaturedProducts";
 import useFetch from "../hooks/useFetch";
 import Dropdown from "../components/Dropdown";
+import { laptop, phone, tabletLand, tabletPort } from "../responsive";
 
 const Container = styled.div`
-  padding: 30px 50px;
+  margin: auto;
+  max-width: 1366px;
   display: flex;
+
+  ${tabletPort({ flexDirection: "column", padding: "0px" })};
 `;
 
 const ContainerLeft = styled.div`
   flex: 1;
   position: sticky;
   height: 100%;
-  top: 50px;
-  margin-left: 150px;
+
+  ${laptop({ padding: "50px" })}
+  ${tabletLand({ padding: "50px" })}
+  ${tabletPort({ margin: " 0 auto", position: "static", padding: "0px" })}
 `;
 
 const ContainerRight = styled.div`
   flex: 3;
+
+  ${phone({ flex: "none" })};
 `;
 
 const InputItem = styled.div``;
@@ -34,11 +42,13 @@ const Title = styled.h1`
   text-transform: capitalize;
   font-size: 34px;
 `;
+
 const FilterContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 `;
+
 const Filter = styled.div`
   display: flex;
   width: 17em;
@@ -51,18 +61,6 @@ const FilterText = styled.span`
   font-weight: 600;
   margin-bottom: 20px;
 `;
-
-const Select = styled.select`
-  width: 15em;
-  padding: 10px;
-  margin-bottom: 20px;
-  text-transform: uppercase;
-  border: 2px solid black;
-`;
-const Form = styled.form`
-  display: flex;
-`;
-const Option = styled.option``;
 
 const sizes = [
   { label: "XS", value: "XS" },

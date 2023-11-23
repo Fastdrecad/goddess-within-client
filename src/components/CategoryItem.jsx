@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { phone, tabletLand } from "../responsive";
 
 const Image = styled.img`
-  height: 100%;
+  aspect-ratio: 1;
   width: 100%;
   object-fit: cover;
   transition: all 1500ms ease;
@@ -10,10 +11,9 @@ const Image = styled.img`
 
 const Container = styled.div`
   flex: 1;
-  /* margin: 3px; */
-  height: 70vh;
   position: relative;
   overflow: hidden;
+  line-height: 0;
 
   &:hover ${Image} {
     transform: scale(1.15);
@@ -37,11 +37,14 @@ const Info = styled.div`
   &:hover {
     opacity: 1;
   }
+
+  ${phone({ opacity: "1" })}
 `;
+
 const Title = styled.h1`
   color: white;
   font-size: 24px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 `;
 
 const Button = styled.button`
@@ -52,6 +55,7 @@ const Button = styled.button`
   outline: none;
   border: none;
   transition: all 0.5s ease;
+  text-transform: uppercase;
 
   &:hover {
     transform: scale(1.1);

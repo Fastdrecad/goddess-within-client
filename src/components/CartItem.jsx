@@ -6,11 +6,14 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { increment, decrement, removeItem } from "../redux/cartReducer.js";
+import { phone } from "../responsive";
 
 const CartItemContent = styled.div`
   display: flex;
   padding: 20px 0;
   border-bottom: 1px solid #dddddd;
+
+  ${phone({ flexDirection: "column" })}
 `;
 const ProductDetail = styled.div`
   display: flex;
@@ -68,6 +71,9 @@ const Bin = styled.span`
   justify-content: center;
   color: #a6a6a6;
   padding: 15px 0;
+  gap: 10px;
+
+  ${phone({ flexDirection: "column", alignItems: "flex-start" })}
 `;
 
 const Trash = styled.span`
@@ -78,6 +84,8 @@ const Trash = styled.span`
   border-right: 1px solid gray;
   font-family: "HelveticaNowText-Light";
   font-weight: 200;
+
+  ${phone({ border: "none" })}
 `;
 
 const Heart = styled.span`
@@ -87,6 +95,8 @@ const Heart = styled.span`
   font-size: 14px;
   font-family: "HelveticaNowText-Light";
   font-weight: 200;
+
+  ${phone({ paddingLeft: "0px" })}
 `;
 
 const PriceDetail = styled.span`
@@ -95,6 +105,8 @@ const PriceDetail = styled.span`
   justify-content: space-around;
   flex-direction: column;
   flex: 1;
+
+  ${phone({ alignItems: "center", paddingTop: "10px" })}
 `;
 
 const ProductAmountContainer = styled.div`
@@ -105,6 +117,8 @@ const ProductAmountContainer = styled.div`
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
+
+  ${phone({ marginBottom: "10px" })}
 `;
 
 const ProductAmount = styled.span`

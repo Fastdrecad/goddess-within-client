@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import FeaturedProducts from "../components/FeaturedProducts";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { BsHeart } from "react-icons/bs";
@@ -8,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux/cartReducer";
 import Dropdown from "../components/Dropdown";
 import { AiFillCloseCircle } from "react-icons/ai";
+import { phone, tabletPort } from "../responsive";
 
 const Container = styled.div`
   font-family: "HelveticaNowText-Regular";
@@ -16,16 +16,22 @@ const Wrapper = styled.div`
   padding: 50px;
   display: flex;
   margin-inline: auto;
-  max-width: 1300px; // TODO responsive
+  max-width: 1300px;
+
+  ${tabletPort({ padding: " 0px", flexDirection: "column" })}
 `;
 const ImageContainer = styled.div`
   position: sticky;
   align-self: flex-start;
   flex-basis: 60%;
   top: 25px;
+
+  ${tabletPort({ position: " static" })}
 `;
 
-const ImageWrapper = styled.div``;
+const ImageWrapper = styled.div`
+  padding: 5px;
+`;
 
 const ProductGallery = styled.div`
   display: flex;
@@ -42,13 +48,10 @@ const LeftPanelGallery = styled.div`
 
 const Img = styled.img`
   width: 100%;
-  height: 140px;
+  aspect-ratio: 0.7;
   object-fit: cover;
   cursor: pointer;
 
-  &:hover {
-    /* outline: 2px solid black; */
-  }
   &.active {
     outline: 2px solid black;
   }
@@ -63,25 +66,28 @@ const Image = styled.img`
   height: 100%;
   object-fit: cover;
   cursor: zoom-in;
-
-  &:hover {
-  }
 `;
 
 const InfoContainer = styled.div`
   padding: 0 15px;
   margin-left: 8%;
   flex-basis: 50%;
+
+  ${tabletPort({ padding: "30px 20px", marginLeft: " 0px" })}
 `;
 
 const BrandName = styled.h1`
   font-size: 30px;
   font-weight: 200;
+
+  ${phone({ fontSize: "24px" })}
 `;
 
 const Title = styled.h1`
   font-family: "HelveticaNowText-Bold";
   font-size: 34px;
+
+  ${phone({ fontSize: "24px" })}
 `;
 const Desc = styled.p`
   font-family: "HelveticaNowText-Light";
@@ -99,7 +105,6 @@ const Price = styled.span`
 
 const Originally = styled.h3`
   color: ${(props) => props.$clr};
-  /* font-weight: 400; */
   display: flex;
   gap: 20px;
   margin-bottom: 20px;
@@ -120,7 +125,6 @@ const FilterContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  /* margin: 20px 0; */
 `;
 
 const Filter = styled.div`
@@ -130,30 +134,6 @@ const Filter = styled.div`
   align-items: center;
   position: relative;
   margin: 10px 0;
-`;
-
-const FilterTitle = styled.span`
-  font-size: 20px;
-  font-weight: 200;
-`;
-
-const FilterColor = styled.div`
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: ${(props) => props.$bgr};
-  margin: 0 5px;
-  cursor: pointer;
-`;
-
-const FilterSize = styled.select`
-  width: 100%;
-  text-transform: uppercase;
-  padding: 15px 30px;
-`;
-
-const FilterSizeOption = styled.option`
-  width: 100%;
 `;
 
 const ErrorMessage = styled.p`
@@ -171,24 +151,6 @@ const AddContainer = styled.div`
   align-items: flex-start;
   flex-direction: column;
   justify-content: space-between;
-`;
-
-const AmountContainer = styled.div`
-  display: flex;
-  align-items: center;
-  font-weight: 700;
-  margin: 20px 0;
-`;
-
-const Amount = styled.span`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  border: 1px solid transparent;
-  margin: 0 5px;
-  font-size: 20px;
 `;
 
 const BagContainer = styled.div`

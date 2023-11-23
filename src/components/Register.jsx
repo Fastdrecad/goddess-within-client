@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { AiFillCloseCircle } from "react-icons/ai";
+import { tabletPort } from "../responsive";
 
 const Container = styled.section`
   display: flex;
@@ -14,6 +15,8 @@ const Wrapper = styled.div`
   padding: 20px;
   width: 33.33%;
   background-color: white;
+
+  ${tabletPort({ width: "75%" })}
 `;
 
 const ErrorMessage = styled.p`
