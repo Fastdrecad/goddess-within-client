@@ -79,8 +79,7 @@ const MenuItem = styled.span`
 
 const ProfileContainer = styled.div`
   z-index: 15;
-  width: 59px;
-  display: flex;
+  margin-inline: 10px;
   position: relative;
 `;
 
