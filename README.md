@@ -1,6 +1,6 @@
 # Goddess Within - Women's Clothing E-Commerce App
 
-<div align='center'><img style="width:30%" src='/client/public/assets/GW-logo.png'/></div>
+<div align='center'><img style="width:25%" src='/public/assets/GW-logo.png'/></div>
 
 <p>
 E-commerce app that brings the latest trends in women's fashion right to your fingertips. <b>Goddess Within</b>  is a Progressive Web App (PWA) built using React, Redux Toolkit, Strapi Headless CMS, and Stripe API.
@@ -11,27 +11,27 @@ E-commerce app that brings the latest trends in women's fashion right to your fi
 ## <a href="#"> Deployed on ... </a>
 
 <br>
-<h3 align='center'>Home Page</h3>
+<h2 align='center'>Home Page</h2>
 <div align='center'>
-<img src='/client/public/assets/GW-Home.png'/>
+<img src='/public/assets/GW-Home.png'/>
 </div>
 
 <br>
-<h3 align='center'>Product Category</h3>
+<h2 align='center'>Product Category</h2>
 <div align='center'>
-<img src='/client/public/assets/GW-Product-Category.png'/>
+<img src='/public/assets/GW-Product-Category.png'/>
 </div>
 
 <br>
-<h3 align='center'>Product Page</h3>
+<h2 align='center'>Product Page</h2>
 <div align='center'>
-<img src='/client/public/assets/GW-Product-Page.png'/>
+<img src='/public/assets/GW-Product-Page.png'/>
 </div>
 
 <br>
-<h3 align='center'>Cart</h3>
+<h2 align='center'>Cart</h2>
 <div align='center'>
-<img src='/client/public/assets/GW-Cart.png'/>
+<img src='/public/assets/GW-Cart.png'/>
 </div>
 
 ## Features
@@ -63,9 +63,15 @@ Below is a non-exhaustive list of technologies used throughout the project.
             </tr>
             <tr>
               <td>Redux Toolkit</td>
-              <td>Axios</td>
               <td></td>
+              <td>Axios</td>
               <td>Styled Components</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>Axios</td>
             </tr>
         </tbody>
   </table>
