@@ -81,11 +81,17 @@ Below is a non-exhaustive list of technologies used throughout the project.
 - **Scalable and Efficient**: Designed for scalability with React and Strapi working seamlessly together.
 - **Easy Customization**: Adapt to emerging trends and customer preferences with React and Strapi's flexibility.
 
-## Get Started
+  ## Setup
 
-1. Clone the repository: `https://github.com/Fastdrecad/goddess-within-client.git`
-2. Install dependencies: `npm install`
-3. Start the app: `npm run dev`
+If you want to play around with Goddess Within app, feel free to clone repo. To start, please enter the following commands on your terminal:
+
+```
+git clone https://github.com/Fastdrecad/goddess-within-client.git
+cd goddess-within-client
+npm install
+npm run dev
+```
+
 
 ## Connect with Goddess Within
 
