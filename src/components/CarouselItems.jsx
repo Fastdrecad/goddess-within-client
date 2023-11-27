@@ -138,7 +138,7 @@ const CarouselItems = ({ children }) => {
     }
     intervalRef.current = setInterval(() => {
       actionHandler("next");
-    }, 3000);
+    }, 13000);
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
