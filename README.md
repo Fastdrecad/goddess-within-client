@@ -10,34 +10,12 @@ E-commerce app that brings the latest trends in women's fashion right to your fi
 
 ## <a href="#"> Deployed on ... </a>
 
-<br>
-<h2 align='center'>Home Page</h2>
-<div align='center'>
-<img src='/public/assets/GW-Home.png'/>
-</div>
 
-<br>
-<h2 align='center'>Product Category</h2>
-<div align='center'>
-<img src='/public/assets/GW-Product-Category.png'/>
-</div>
-
-<br>
-<h2 align='center'>Product Page</h2>
-<div align='center'>
-<img src='/public/assets/GW-Product-Page.png'/>
-</div>
-
-<br>
-<h2 align='center'>Cart</h2>
-<div align='center'>
-<img src='/public/assets/GW-Cart.png'/>
-</div>
 
 ## Features
 
 - **Trendsetting Fashion**: Discover the latest in women's fashion, from casual wear to evening glamour.
-- **Intuitive User Interface**: Seamless navigation through categories, with filters for style, price, and size.
+- **Intuitive User Interface**: Seamless navigation through categories, with filters for searching the specific product, price, and size.
 - **Responsive Design**: Enjoy a consistent shopping experience across all devices.
 - **Secure Checkout**: Shop with confidence using our secure and reliable checkout process.
 
@@ -64,7 +42,7 @@ Below is a non-exhaustive list of technologies used throughout the project.
             <tr>
               <td>Redux Toolkit</td>
               <td></td>
-              <td>Axios</td>
+              <td></td>
               <td>Styled Components</td>
             </tr>
             <tr>
