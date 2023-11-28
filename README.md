@@ -15,8 +15,10 @@ E-commerce app that brings the latest trends in women's fashion right to your fi
 ## Features
 
 - **Trendsetting Fashion**: Discover the latest in women's fashion, from casual wear to evening glamour.
-- **Intuitive User Interface**: Seamless navigation through categories, with filters for searching the specific product, price, and size.
+- **Intuitive User Interface**: Seamless navigation through categories, with filters for price, and size.
 - **Responsive Design**: Enjoy a consistent shopping experience across all devices.
+- **Efficient Search Functionality**: Find desired products quickly and easily with powerful search functionality.
+- **Dynamic Sorting**: Arrange products in ascending or descending order according to their price and size.
 - **Secure Checkout**: Shop with confidence using our secure and reliable checkout process.
 
 ## Tech Stack
