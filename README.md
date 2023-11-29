@@ -6,7 +6,7 @@
 E-commerce app that brings the latest trends in women's fashion right to your fingertips. <b>Goddess Within</b>  is a Progressive Web App (PWA) built using React, Redux Toolkit, Strapi Headless CMS, and Stripe API.
 </p>
 
-## <a href="https://www.youtube.com/"> Demo Video on YouTube </a>
+## <a href="https://youtu.be/3Rk5Nq-Uc2k"> Demo Video on YouTube </a>
 
 ## <a href="#"> Deployed on ... </a>
 
